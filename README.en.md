@@ -18,14 +18,15 @@ versions, and independent review with Codex.
    cd Luisart-Video-system
    claude
    ```
-2. **The guide starts by itself:** a session hook plus `CLAUDE.md` make the AI run the skill
-   `video-system-start` and ask you one question at a time, in your language.
+2. **The guide starts by itself:** a session hook plus `CLAUDE.md` make the AI run the master skill
+   **`lizard-init-skills`** (or type `/lizard-init-skills`), which runs **every skill in order** and asks you one
+   question at a time, in your language.
 3. **Follow the stages.** Stop and resume any time: progress is kept in `brand/PROGRESS.md`.
 
 ## What the guide does with you
 | Stage | What happens | Skill |
 |---|---|---|
-| 0–1 | language, level, who you are and what your videos are about | `video-system-start` |
+| 0–1 | language, level, who you are and what your videos are about | `video-system-start` (conducted by `lizard-init-skills`, steps S01–S17 in `steps.json`) |
 | 2 | install and verify the computer (Remotion, FFmpeg, Python, Whisper, CLIs) | `luisart-montar-sistema` |
 | 3 | **Design system: create one or import one** (website, CSS, tokens, DESIGN.md, PDF, Figma) | `design-system-create` / `design-system-import` |
 | 4 | **References** from many sites, teaching you how to build a board (links and notes only) | `design-references-research` |
@@ -57,6 +58,7 @@ python scripts/design/contraste.py brand/design-system/tokens.json     # readabl
 python scripts/design/generar_theme.py                                 # tokens -> Remotion theme
 python scripts/design/revisar_robots.py godly.design ...               # does this site let an AI read it?
 python scripts/configurar_rutas.py --create --channel my-brand         # creates folders and brand/paths.json
+python scripts/progreso.py --list                                      # your progress in the guided run
 npm run studio                                                         # preview the graphics
 ```
 

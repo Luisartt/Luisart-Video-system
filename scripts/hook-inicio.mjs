@@ -1,22 +1,27 @@
-// SessionStart hook: prints a short status so the assistant knows where the user is.
-// It ONLY reads brand/brand.json and brand/PROGRESS.md and prints text. No network, no writes.
+// SessionStart hook: prints a short status so the assistant knows where the user is in the guided run.
+// It ONLY reads brand/*.json and .claude/skills/lizard-init-skills/steps.json and prints text. No network, no writes.
 import { existsSync, readFileSync } from "node:fs";
 
-const read = (p) => (existsSync(p) ? readFileSync(p, "utf8") : null);
-const brand = read("brand/brand.json");
+const readJson = (p) => {
+  try { return existsSync(p) ? JSON.parse(readFileSync(p, "utf8")) : null; } catch { return null; }
+};
+const brand = readJson("brand/brand.json");
+const progress = readJson("brand/progress.json") || {};
+const steps = (readJson(".claude/skills/lizard-init-skills/steps.json") || { steps: [] }).steps;
+const next = steps.find((s) => (progress[s.id]?.status || "pending") === "pending");
+
 let msg;
-if (!brand) {
+if (!brand && !Object.keys(progress).length) {
   msg =
-    "This repository has no brand set up yet (brand/brand.json is missing). Run the skill `video-system-start` now " +
-    "and guide the user step by step: ask their language first, then one question at a time. " +
-    "Options they will choose later: create a design system or import one. Do everything technical yourself.";
+    "This repository has not been set up yet (no brand/brand.json). Run the skill `lizard-init-skills` now: it runs every " +
+    "other skill in order and guides the user step by step. Ask their language first, then one question at a time. " +
+    "Do everything technical yourself.";
+} else if (!next) {
+  msg = "The guided run (lizard-init-skills) is complete. Offer to repeat any step (`python scripts/progreso.py --reset <ID>`) or start a new video.";
 } else {
-  let info = {};
-  try { info = JSON.parse(brand); } catch { /* keep empty */ }
-  const progress = (read("brand/PROGRESS.md") || "").split("\n").filter((l) => /^- \[[ x]\]/i.test(l)).slice(0, 14).join("\n");
   msg =
-    `Brand set up: "${info.brand_name || "?"}" (language: ${info.language || "?"}, stage: ${info.stage ?? "?"}, active channel: ${info.active_channel || "?"}). ` +
-    "Greet the user by what they already decided and offer to resume with the skill `video-system-start`.\n" +
-    (progress ? `Progress:\n${progress}` : "");
+    `The guided run (skill \`lizard-init-skills\`) is in progress${brand?.brand_name ? ` for "${brand.brand_name}"` : ""}. ` +
+    `Next step: ${next.id} (${next.skills.join(" / ")}) — ${next.title}. ` +
+    "Greet the user by what they already decided, then offer to continue with `lizard-init-skills`.";
 }
 process.stdout.write(JSON.stringify({ hookSpecificOutput: { hookEventName: "SessionStart", additionalContext: msg } }));

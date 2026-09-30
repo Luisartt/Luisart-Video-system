@@ -8,14 +8,16 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
 ## First thing in every session
 
 1. Read `brand/brand.json` and `brand/PROGRESS.md` if they exist.
-2. **If `brand/brand.json` does not exist, run the skill `video-system-start` now**, before doing
-   anything else, and greet the user in their language (ask it first). Do not wait for them to ask.
-   If it exists, greet them by what they already decided and offer to resume at the first unchecked stage.
+2. **If the guided run has not started (no `brand/brand.json`), run the skill `lizard-init-skills` now**, before
+   doing anything else, and greet the user in their language (ask it first). Do not wait for them to ask.
+   It runs every other skill in a fixed order and tracks progress; if it is in progress, greet the user by what they
+   already decided and offer to continue from the next step (`python scripts/progreso.py --next`).
 3. A session hook (`.claude/settings.json` → `scripts/hook-inicio.mjs`) prints a one-paragraph status at
    session start; it only reads `brand/` and prints text.
 
 ## The guided path (skills)
-`video-system-start` (the guide) → `luisart-montar-sistema` (computer setup) → `design-system-create` **or**
+`lizard-init-skills` (the conductor: runs all of these in order, `steps.json`) → `video-system-start` (intake) →
+`luisart-montar-sistema` (computer setup) → `design-system-create` **or**
 `design-system-import` → `design-references-research` (sites; guide in
 `.claude/skills/design-references-research/references/sites.md`) → `graphics-from-design-system` →
 `wiki-vault-setup` (notes, RAW inboxes, wiki) → `luisart-configurar-estilo` (style profile) →

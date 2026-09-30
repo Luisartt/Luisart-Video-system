@@ -1,0 +1,22 @@
+{
+  "_comment": "Single source of truth for the order of the guided run. Read by scripts/progreso.py and by the skill lizard-init-skills. 'done_when' = files that prove the step is done (globs relative to the repo; {channel} comes from brand/paths.json); empty = marked by hand.",
+  "steps": [
+    {"id": "S01", "phase": "A. Foundation", "skills": ["video-system-start"], "title": "About you: language, level, brand, topic, platforms", "mode": "required", "done_when": ["brand/brand.json"]},
+    {"id": "S02", "phase": "A. Foundation", "skills": ["luisart-montar-sistema"], "title": "Set up this computer and create your paths", "mode": "required", "done_when": ["brand/paths.json"]},
+    {"id": "S03", "phase": "B. Brand", "skills": ["design-references-research"], "title": "Gather references from many sites (do it first if you do not know what you like)", "mode": "optional", "done_when": ["brand/references/REFERENCES.md"]},
+    {"id": "S04", "phase": "B. Brand", "skills": ["design-system-create", "design-system-import"], "title": "Design system: create one OR import one", "mode": "required", "done_when": ["brand/design-system/tokens.json"]},
+    {"id": "S05", "phase": "B. Brand", "skills": ["graphics-from-design-system"], "title": "First graphics in your brand (stills and a short clip)", "mode": "required", "done_when": ["out/{channel}/samples/compare.png"]},
+    {"id": "S06", "phase": "C. Knowledge", "skills": ["wiki-vault-setup"], "title": "Your wiki: notes, RAW inboxes, databases", "mode": "optional", "done_when": ["@vault/CLAUDE.md"]},
+    {"id": "S07", "phase": "C. Knowledge", "skills": ["luisart-procesar-referencias"], "title": "Process the video references waiting in rawcc", "mode": "optional", "done_when": []},
+    {"id": "S08", "phase": "C. Knowledge", "skills": ["luisart-procesar-material"], "title": "Process the things to learn waiting in rawc", "mode": "optional", "done_when": []},
+    {"id": "S09", "phase": "D. Style and rules", "skills": ["luisart-reglas"], "title": "Your channel rules (CHANNEL.md)", "mode": "required", "done_when": ["channels/{channel}/CHANNEL.md"]},
+    {"id": "S10", "phase": "D. Style and rules", "skills": ["luisart-configurar-estilo"], "title": "Your editing style profile", "mode": "required", "done_when": ["channels/{channel}/styles/*/STYLE.md"]},
+    {"id": "S11", "phase": "D. Style and rules", "skills": ["luisart-diseno-sonoro"], "title": "Sound design rules (you choose the music)", "mode": "required", "done_when": []},
+    {"id": "S12", "phase": "D. Style and rules", "skills": ["luisart-animaciones-pizarra"], "title": "Your animation elements (tour the library, build your first new one)", "mode": "optional", "done_when": []},
+    {"id": "S13", "phase": "E. First video", "skills": ["luisart-guion"], "title": "Write or review your first script", "mode": "required", "done_when": []},
+    {"id": "S14", "phase": "E. First video", "skills": ["luisart-producir-desde-guion"], "title": "Script + recording: analysis, transcript, vertical/horizontal, brief", "mode": "required", "done_when": []},
+    {"id": "S15", "phase": "E. First video", "skills": ["luisart-editar-short"], "title": "The edit itself, automatic after you choose the style", "mode": "required", "done_when": []},
+    {"id": "S16", "phase": "E. First video", "skills": ["luisart-revision-codex"], "title": "Independent review before delivery", "mode": "required", "done_when": []},
+    {"id": "S17", "phase": "F. Ship", "skills": ["buffer-publishing-setup"], "title": "Schedule the finished post in Buffer (only when you say it is done)", "mode": "optional", "done_when": []}
+  ]
+}

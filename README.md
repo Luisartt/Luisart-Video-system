@@ -17,14 +17,15 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
    cd Luisart-Video-system
    claude
    ```
-2. **La guía arranca sola**: un hook de sesión y `CLAUDE.md` hacen que la IA ejecute la skill
-   `video-system-start` y te pregunte, una cosa a la vez, en tu idioma.
+2. **La guía arranca sola**: un hook de sesión y `CLAUDE.md` hacen que la IA ejecute la skill maestra
+   **`lizard-init-skills`** (o escribe `/lizard-init-skills`), que corre **todas las skills en orden** y te pregunta,
+   una cosa a la vez, en tu idioma.
 3. **Sigue las etapas.** Puedes parar y retomar: tu avance queda en `brand/PROGRESS.md`.
 
 ## Lo que la guía hace contigo
 | Etapa | Qué pasa | Skill |
 |---|---|---|
-| 0–1 | idioma, nivel, quién eres y de qué tratan tus videos | `video-system-start` |
+| 0–1 | idioma, nivel, quién eres y de qué tratan tus videos | `video-system-start` (la dirige `lizard-init-skills`, pasos S01–S17 en `steps.json`) |
 | 2 | instalar y verificar la computadora (Remotion, FFmpeg, Python, Whisper, CLIs) | `luisart-montar-sistema` |
 | 3 | **Design system: crear uno o importar uno** (sitio web, CSS, tokens, DESIGN.md, PDF, Figma) | `design-system-create` / `design-system-import` |
 | 4 | **Referencias** en muchos sitios, enseñándote a armar un tablero (solo enlaces y notas) | `design-references-research` |
@@ -56,6 +57,7 @@ python scripts/design/contraste.py brand/design-system/tokens.json     # ¿se le
 python scripts/design/generar_theme.py                                 # tokens → tema de Remotion
 python scripts/design/revisar_robots.py godly.design ...               # ¿este sitio deja leer a una IA?
 python scripts/configurar_rutas.py --create --channel mi-marca         # crea carpetas y brand/paths.json
+python scripts/progreso.py --list                                      # tu avance en la corrida guiada
 npm run studio                                                         # ver y probar los gráficos
 ```
 
