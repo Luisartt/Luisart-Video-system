@@ -19,7 +19,8 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
 `design-system-import` → `design-references-research` (sites; guide in
 `.claude/skills/design-references-research/references/sites.md`) → `graphics-from-design-system` →
 `wiki-vault-setup` (notes, RAW inboxes, wiki) → `luisart-configurar-estilo` (style profile) →
-`luisart-guion` → `luisart-producir-desde-guion` → `luisart-editar-short` → `luisart-revision-codex`.
+`luisart-guion` → `luisart-producir-desde-guion` → `luisart-editar-short` → `luisart-revision-codex` →
+`buffer-publishing-setup` (schedule the finished post; guide in `docs/BUFFER.md`).
 Models and CLIs guide: `docs/MODELOS-Y-CLIS.md`. All tools: `TOOLS.md`.
 
 ## Paths are placeholders (configurable)
@@ -42,7 +43,8 @@ The user can edit `paths.json` or any `SKILL.md` to fit their setup; `--check` v
   frames, or a vault. Ask before any push; never force-push.
 - Never log in for the user, import cookies, solve CAPTCHAs or download copyrighted assets. Respect each
   site's robots.txt (`scripts/design/revisar_robots.py`); if a site blocks AI agents, give the user the link.
-- Never clone a voice, pick the user's music, or publish anything for them.
+- Never clone a voice or pick the user's music. **Publishing is always the user's decision:** schedule in Buffer only
+  after they say the post is done (never "publish now"); never type, ask for or store a password or API key.
 - The user is assumed **not technical**: you run every command; they decide and sign in. Report outcomes in
   plain words in their language.
 - One heavy job (render, Whisper) at a time; renders go through the `*-locked.ts` scripts in `core/scripts/`.

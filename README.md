@@ -32,7 +32,7 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | 5b | **Tu wiki**: notas, bandejas RAW (`rawcc` referencias, `rawc` aprendizaje), base de datos por categoría | `wiki-vault-setup` |
 | 6 | tu estilo de edición y las reglas de tu canal | `luisart-configurar-estilo` |
 | 7 | guion + grabación → análisis, transcripción, vertical/horizontal, edición | `luisart-guion`, `luisart-producir-desde-guion`, `luisart-editar-short` |
-| 8 | revisión independiente y entrega | `luisart-revision-codex` |
+| 8 | revisión independiente, entrega y **programar en Buffer** (recomendado) | `luisart-revision-codex`, `buffer-publishing-setup` |
 
 ## Qué hay en el repositorio
 | Ruta | Contenido |
@@ -43,6 +43,7 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | `channels/soyluisart/` | ejemplo completo de un canal real: reglas, 4 estilos, biblioteca de animaciones |
 | `brand/` | **tu** marca: `brand.json`, `PROGRESS.md`, `paths.json` (tus rutas, editable), `design-system/tokens.json`, `references/` |
 | `vault-template/` | esqueleto de tu wiki: manual `CLAUDE.md`, bandejas, plantillas, Web Clipper |
+| `docs/BUFFER.md`, `tools/buffer/` | recomendación y setup de Buffer + scripts para programar posts |
 | `docs/MODELOS-Y-CLIS.md` | qué modelos y CLIs usar (imágenes, video, voz, revisión) con opciones |
 | `scripts/` | instaladores (Windows), herramientas de diseño (contraste, importar tokens, revisar robots.txt) |
 | `core/` | raíz de Remotion, render con candado, QA, matte y seguimiento de cara |

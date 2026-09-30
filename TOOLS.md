@@ -39,6 +39,12 @@ descargan solos la primera vez (~1.6 GB el de Whisper).
 | img2threejs | https://github.com/img2threejs/img2threejs |
 | awesome-design-md (referencias de diseño) | https://github.com/voltagent/awesome-design-md |
 
+## Publicación (opcional)
+| Herramienta | Para qué | Nota |
+|---|---|---|
+| **Buffer** (cuenta + conector MCP) | programar Instagram y otras redes | plan gratis para empezar; ver `docs/BUFFER.md` |
+| Playwright (ya en `package.json`) | `tools/buffer/` sube archivos con tu sesión guardada | la sesión queda en `.profiles/buffer` (ignorada por git) |
+
 ## Tarjeta de video
 NVIDIA con driver ≥ 551.76 para codificar con NVENC (probado con RTX 4050 Laptop 6 GB). Sin GPU todo
 funciona, más lento; ajusta `core/lib/render-settings.ts`.

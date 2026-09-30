@@ -33,7 +33,7 @@ versions, and independent review with Codex.
 | 5b | **Your wiki:** notes, RAW inboxes (`rawcc` references, `rawc` learning), database filed by category | `wiki-vault-setup` |
 | 6 | your editing style and channel rules | `luisart-configurar-estilo` |
 | 7 | script + recording → analysis, transcript, vertical/horizontal, edit | `luisart-guion`, `luisart-producir-desde-guion`, `luisart-editar-short` |
-| 8 | independent review and delivery | `luisart-revision-codex` |
+| 8 | independent review, delivery and **scheduling in Buffer** (recommended) | `luisart-revision-codex`, `buffer-publishing-setup` |
 
 ## What is in the repository
 | Path | Contents |
@@ -44,6 +44,7 @@ versions, and independent review with Codex.
 | `channels/soyluisart/` | a complete real-channel example: rules, 4 styles, animation library |
 | `brand/` | **your** brand: `brand.json`, `PROGRESS.md`, `paths.json` (your folders, editable), `design-system/tokens.json`, `references/` |
 | `vault-template/` | skeleton of your wiki: manual `CLAUDE.md`, inboxes, page templates, Web Clipper |
+| `docs/BUFFER.md`, `tools/buffer/` | Buffer recommendation and setup + scripts to schedule posts |
 | `docs/MODELOS-Y-CLIS.md` | which models and CLIs to use (images, video, voice, review), with options |
 | `scripts/` | installers (Windows), design tools (contrast, token import, robots.txt check) |
 | `core/` | Remotion root, locked renders, QA, matting and face tracking |

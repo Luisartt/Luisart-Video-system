@@ -98,7 +98,8 @@ for how the example library was sourced).
 ### Stage 8 — Review and ship
 Independent review with `luisart-revision-codex` (needs Codex CLI; otherwise review the contact
 sheets yourself against `CHANNEL.md`). Deliver files to `out/<slug>/`. Never publish anything for
-them. Summarise what they now own and how to repeat the process alone.
+them on your own: if they want to schedule the finished post, offer the skill `buffer-publishing-setup` (Buffer is
+the recommended scheduler; setup once, then it schedules only when they say the post is done). Summarise what they now own and how to repeat the process alone.
 
 ## Fields of `brand/brand.json`
 ```json
