@@ -1,0 +1,13 @@
+{
+  "source": "media/soyluisart/automated-research/2026-09-27-per-barato/aroll-1080x1920.mp4",
+  "matte": "media/soyluisart/automated-research/2026-09-27-per-barato/aroll-person-alpha.webm",
+  "rawRecording": "recordings/soyluisart/2026-09-27-per-barato-raw.mp4",
+  "fps": 30,
+  "keep": [
+    { "in": 0.0, "out": 20.7 },
+    { "in": 22.0, "out": 43.5 }
+  ],
+  "removed": [
+    { "in": 20.7, "out": 22.0, "text": "y gana 10%,", "reason": "flub: said '10%' then corrected himself to '10 pesos por acción'; cut in the 0.3 s silence before the second 'gana' (21.84-22.12)" }
+  ]
+}

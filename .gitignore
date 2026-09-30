@@ -1,0 +1,16 @@
+node_modules/
+.venv/
+out/
+archive/
+recordings/
+.remotion/
+.env
+.firecrawl/
+.profiles/
+*.log
+tools/design-repos/
+media/*/automated-research/
+media/*/user-provided/
+media/soyluisart/audio/efectos/
+media/soyluisart/audio/fondos*/
+fal-spend.csv

@@ -1,0 +1,48 @@
+{
+  "name": "tubeai-video",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "studio": "remotion studio core/index.ts",
+    "render": "remotion render core/index.ts",
+    "render:alpha": "remotion render core/index.ts --image-format=png --pixel-format=yuva444p10le --codec=prores --prores-profile=4444",
+    "still": "remotion still core/index.ts",
+    "gpu": "remotion gpu core/index.ts --chrome-mode=chrome-for-testing --gl=angle",
+    "qa": "tsx core/scripts/qa.ts",
+    "fal": "tsx core/scripts/fal.ts",
+    "render:locked": "tsx core/scripts/render-locked.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@remotion/bundler": "^4.0.529",
+    "@remotion/captions": "^4.0.529",
+    "@remotion/cli": "^4.0.529",
+    "@remotion/fonts": "^4.0.529",
+    "@remotion/google-fonts": "^4.0.529",
+    "@remotion/layout-utils": "^4.0.529",
+    "@remotion/media-utils": "^4.0.529",
+    "@remotion/noise": "^4.0.529",
+    "@remotion/paths": "^4.0.529",
+    "@remotion/renderer": "^4.0.529",
+    "@remotion/shapes": "^4.0.529",
+    "@remotion/transitions": "^4.0.529",
+    "@remotion/zod-types": "^4.0.529",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "remotion": "^4.0.529"
+  },
+  "devDependencies": {
+    "@mozilla/readability": "^0.6.0",
+    "@types/node": "^26.6.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "playwright": "^1.63.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "zod": "^4.5.4"
+  }
+}
