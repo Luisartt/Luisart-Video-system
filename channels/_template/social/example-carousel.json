@@ -1,0 +1,14 @@
+{
+  "kind": "carousel",
+  "series": "PART 1",
+  "handle": "@yourbrand",
+  "slides": [
+    { "type": "hook", "title": "5 mistakes with your first *$5,000*", "note": "(and how to avoid them without becoming an expert)" },
+    { "type": "context", "title": "It is rarely how much you have. It is *how you start.*", "note": "Same money, very different results.", "example": "example data" },
+    { "type": "item", "n": 1, "title": "Keeping it all in *one place*", "body": "One account, one product, one bet. Spread it.", "proof": "Rule of thumb: never more than a third in a single product." },
+    { "type": "compare", "title": "Same money, two *decisions*", "a": { "name": "Option A", "value": 100, "unit": "" }, "b": { "name": "Option B", "value": 700, "unit": "" }, "footnote": "Only where you put it changed.", "example": "example data" },
+    { "type": "stat", "value": "$700", "label": "earned in a year by option B", "note": "7 times more, same starting money", "example": "example data" },
+    { "type": "list", "title": "Your checklist", "items": ["Emergency fund first", "Automate the saving", "Write down why you buy"] },
+    { "type": "cta", "line": "Want the *full guide*?", "keyword": "GUIDE", "save": "Save this post ✓" }
+  ]
+}

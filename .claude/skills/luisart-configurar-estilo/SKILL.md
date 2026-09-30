@@ -53,7 +53,12 @@ It has fixed sections so any style can be compared with another:
 
 ## Steps
 
-1. **Start from a source.** One of: (a) a reference analysed in the vault
+1. **Start from a source — two routes** (explain them; see `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md`):
+   **Route A, with reference videos:** ask the user to send 1–5 videos (public links or files) and one line each on what they
+   liked and whether editing, script or both matter; they go to the `rawcc` inbox and are analysed with `luisart-procesar-referencias`
+   ("procesa rawcc"). **Route B, no references:** build the style from the design system alone (`brand/design-system/tokens.json`,
+   created or imported) plus the template elements and default rules; show a sample and tune it with the user's words. References can
+   be added later to refine the style. One of: (a) a reference analysed in the vault
    `wiki/Content Creation/References/Analyzed Videos/` (read its `## Editing Analysis` and
    `## What We Can Copy`); (b) an existing style to clone or tune (read its `README.md` and
    `theme.ts`); (c) a description in words. Read `wiki/Content Creation/` only (Editing System,

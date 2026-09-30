@@ -33,6 +33,7 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | 5b | **Tu wiki**: notas, bandejas RAW (`rawcc` referencias, `rawc` aprendizaje), base de datos por categoría | `wiki-vault-setup` |
 | 6 | tu estilo de edición y las reglas de tu canal | `luisart-configurar-estilo` |
 | 7 | guion + grabación → análisis, transcripción, vertical/horizontal, edición | `luisart-guion`, `luisart-producir-desde-guion`, `luisart-editar-short` |
+| 7b | **Carruseles** (4:5) e **historias** (9:16) en tu marca, con render desde datos | `carousel-create`, `story-create` |
 | 8 | revisión independiente, entrega y **programar en Buffer** (recomendado) | `luisart-revision-codex`, `buffer-publishing-setup` |
 
 ## Qué hay en el repositorio
@@ -44,6 +45,8 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | `channels/soyluisart/` | ejemplo completo de un canal real: reglas, 4 estilos, biblioteca de animaciones |
 | `brand/` | **tu** marca: `brand.json`, `PROGRESS.md`, `paths.json` (tus rutas, editable), `design-system/tokens.json`, `references/` |
 | `vault-template/` | esqueleto de tu wiki: manual `CLAUDE.md`, bandejas, plantillas, Web Clipper |
+| `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md` | **videos con referencias (Ruta A) o solo con tu design system (Ruta B)** |
+| `channels/_template/social/` | renderizador de carruseles e historias (`render_social.cjs`) + ejemplos |
 | `docs/BUFFER.md`, `tools/buffer/` | recomendación y setup de Buffer + scripts para programar posts |
 | `docs/MODELOS-Y-CLIS.md` | qué modelos y CLIs usar (imágenes, video, voz, revisión) con opciones |
 | `scripts/` | instaladores (Windows), herramientas de diseño (contraste, importar tokens, revisar robots.txt) |
@@ -60,6 +63,18 @@ python scripts/configurar_rutas.py --create --channel mi-marca         # crea ca
 python scripts/progreso.py --list                                      # tu avance en la corrida guiada
 npm run studio                                                         # ver y probar los gráficos
 ```
+
+## Videos: con o sin referencias
+Puedes **mandar videos de referencia** (de 1 a 5, enlaces o archivos + una línea de qué te gustó) y la IA copia sus principios, **o no mandar
+ninguno** y trabajar solo con tu design system (importado o creado desde cero). Se pueden combinar y cambiar cuando quieras:
+[`docs/VIDEOS-CON-O-SIN-REFERENCIAS.md`](docs/VIDEOS-CON-O-SIN-REFERENCIAS.md).
+
+## Carruseles e historias
+```bash
+node channels/_template/social/render_social.cjs --deck channels/_template/social/example-carousel.json   # 7 láminas 1080×1350
+node channels/_template/social/render_social.cjs --deck channels/_template/social/example-story.json      # 4 historias 1080×1920
+```
+La IA los hace por ti con las skills `carousel-create` y `story-create`: lee tus tokens, respeta las zonas seguras y deja el post listo para Buffer.
 
 ## Notas importantes
 - **Repositorio público:** nunca subas llaves (`.env` está ignorado), grabaciones, audio con licencia, imágenes

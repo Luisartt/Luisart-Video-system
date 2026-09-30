@@ -8,7 +8,7 @@ description: The master run. Once the repository is cloned, running this skill e
 You are the conductor. The user may be non-technical: **you run every step**; they answer questions and sign
 in where unavoidable. Speak their language (ask it first, in S01). One question at a time.
 
-The order lives in one file, `.claude/skills/luisart-init-skills/steps.json` (17 steps, phases A–F, covering every
+The order lives in one file, `.claude/skills/luisart-init-skills/steps.json` (19 steps, phases A–G, covering every
 skill of the repository). Progress lives in `brand/progress.json`, shown to humans in `brand/PROGRESS.md`; both are
 managed by `python scripts/progreso.py`. Paths come from `brand/paths.json` (created in S02; placeholders such as
 `{PROJECT}` are resolved from it, see `CLAUDE.md`).
@@ -30,7 +30,12 @@ managed by `python scripts/progreso.py`. Paths come from `brand/paths.json` (cre
      `channels/_template/CHANNEL.template.md` by asking the rule questions; S11 sets the sound rules (loudness,
      whoosh rule, how the user supplies music — never pick it); S12 tours the element library and builds the first new
      element if they want one.
-   - **Steps that need material** (S07/S08 need clips waiting in the inboxes; S13–S16 need a script and a recording):
+   - **Video styling has two routes — explain them before S07/S10** (`docs/VIDEOS-CON-O-SIN-REFERENCIAS.md`): **A)** the user sends
+     1–5 reference videos (links or files + one line on what they liked) and S07 analyses them; **B)** no references: the style is built
+     from the design system alone (created or imported) plus the template elements and default rules. Ask once: "Do you have reference
+     videos you want to copy the style of?" If not, mark S07 skipped with the note "Route B: design system only"; references can be
+     added later and the style updated (S10 again).
+   - **Steps that need material** (S07/S08 need clips waiting in the inboxes; S13–S16 need a script and a recording; S17–S18 need a topic):
      check first. If nothing is waiting, say so, mark the step skipped with a note ("nothing to process yet") and
      move on; it stays available from the same command later.
    - S01 is **intake only** (`video-system-start` Stages 0–1). Do not let it run the other stages itself: this skill
@@ -63,7 +68,8 @@ Then go to 1.
 | C. Knowledge | S06 `wiki-vault-setup` · S07 `luisart-procesar-referencias` · S08 `luisart-procesar-material` |
 | D. Style and rules | S09 `luisart-reglas` · S10 `luisart-configurar-estilo` · S11 `luisart-diseno-sonoro` · S12 `luisart-animaciones-pizarra` |
 | E. First video | S13 `luisart-guion` · S14 `luisart-producir-desde-guion` · S15 `luisart-editar-short` · S16 `luisart-revision-codex` |
-| F. Ship | S17 `buffer-publishing-setup` |
+| F. Carousels and stories | S17 `carousel-create` · S18 `story-create` |
+| G. Ship | S19 `buffer-publishing-setup` |
 
 To add a skill to the run, add a step to `steps.json` (id, phase, skills, title, mode, done_when); no code changes.
 

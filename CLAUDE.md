@@ -20,9 +20,11 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
 `luisart-montar-sistema` (computer setup) → `design-system-create` **or**
 `design-system-import` → `design-references-research` (sites; guide in
 `.claude/skills/design-references-research/references/sites.md`) → `graphics-from-design-system` →
-`wiki-vault-setup` (notes, RAW inboxes, wiki) → `luisart-configurar-estilo` (style profile) →
+`wiki-vault-setup` (notes, RAW inboxes, wiki) → `luisart-configurar-estilo` (style profile; with reference videos or from the
+design system alone, `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md`) →
 `luisart-guion` → `luisart-producir-desde-guion` → `luisart-editar-short` → `luisart-revision-codex` →
-`buffer-publishing-setup` (schedule the finished post; guide in `docs/BUFFER.md`).
+`carousel-create` / `story-create` (Instagram carousels and stories) → `buffer-publishing-setup` (schedule the finished post;
+guide in `docs/BUFFER.md`).
 Models and CLIs guide: `docs/MODELOS-Y-CLIS.md`. All tools: `TOOLS.md`.
 
 ## Paths are placeholders (configurable)

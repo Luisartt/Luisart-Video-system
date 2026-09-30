@@ -59,11 +59,20 @@
     "horizontal": {
       "top": 120,
       "bottom": 960
+    },
+    "story": {
+      "top": 250,
+      "bottom": 1600
     }
   },
   "sound": {
     "loudnessLUFS": -14,
     "truePeakDb": -1
   },
-  "logo": null
+  "logo": null,
+  "social": {
+    "carouselFrame": 0.84,
+    "handle": "@yourbrand",
+    "series": "PART 1"
+  }
 }

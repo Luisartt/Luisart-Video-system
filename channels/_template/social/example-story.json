@@ -1,0 +1,10 @@
+{
+  "kind": "story",
+  "handle": "@yourbrand",
+  "slides": [
+    { "type": "cover", "kicker": "quick tip", "title": "The *one habit* that changed my savings" },
+    { "type": "stat", "value": "+$700", "label": "in a year", "note": "same money, different place", "example": "example data" },
+    { "type": "poll", "question": "Do you save *automatically*?", "a": "Yes", "b": "Not yet" },
+    { "type": "cta", "line": "Get the *free guide*", "button": "link sticker here" }
+  ]
+}

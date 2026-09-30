@@ -4,6 +4,9 @@ Everything new about **making videos** arrives here: references whose editing, s
 to copy or study. The AI reads this folder and never edits your files. The folder around it, `Content/`,
 is the database where processed items are filed by category.
 
+> **Optional.** Sending reference videos is *Route A*. If you have none, *Route B* builds your style from your design system alone;
+> you can add references at any time (see `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md` in the project).
+
 ## What goes here
 - **Web Clipper notes.** Import `_web-clipper-template.json` once (Obsidian Web Clipper → Settings →
   Templates → Import). Clip a reel, video or post: it lands here as a note with `status: pending`.

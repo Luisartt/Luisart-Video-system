@@ -11,13 +11,13 @@ const f_mono = load_mono("normal", { weights: ["700"], subsets: ["latin", "latin
 
 export const theme = {
   name: "Example Brand (replace me)",
-  color: {"background": "#FFFFFF", "surface": "#F4F4F6", "ink": "#111111", "muted": "#6B7280", "accent": "#2F6BFF", "accent2": "#F3C440", "positive": "#2BB673", "negative": "#E5484D", "line": "#111111"},
+  color: {"background": "#FFFFFF", "surface": "#F4F4F6", "ink": "#111111", "muted": "#6B7280", "accent": "#2F6BFF", "accent2": "#B07800", "positive": "#1E8A53", "negative": "#E5484D", "line": "#111111"},
   type: {"title": 96, "label": 48, "caption": 54, "number": 160},
   radius: {"card": 0, "pill": 999},
   border: 4,
   shadow: {"x": 9, "y": 9, "color": "#D6D6D6"},
   motion: {"enterFrames": 8, "stagger": 10, "overshoot": false},
-  safe: {"vertical": {"top": 250, "bottom": 970}, "horizontal": {"top": 120, "bottom": 960}},
+  safe: {"vertical": {"top": 250, "bottom": 970}, "horizontal": {"top": 120, "bottom": 960}, "story": {"top": 250, "bottom": 1600}},
   sound: {"loudnessLUFS": -14, "truePeakDb": -1},
   logo: null,
   font: {

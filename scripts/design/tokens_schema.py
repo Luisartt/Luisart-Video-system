@@ -28,7 +28,8 @@ DEFAULTS = {
     "border": 4,
     "shadow": {"x": 9, "y": 9, "color": "#D6D6D6"},
     "motion": {"enterFrames": 8, "stagger": 10, "overshoot": False},
-    "safe": {"vertical": {"top": 250, "bottom": 970}, "horizontal": {"top": 120, "bottom": 960}},
+    "safe": {"vertical": {"top": 250, "bottom": 970}, "horizontal": {"top": 120, "bottom": 960}, "story": {"top": 250, "bottom": 1600}},
+    "social": {"carouselFrame": 0.84, "handle": "@yourbrand", "series": "PART 1"},
     "sound": {"loudnessLUFS": -14, "truePeakDb": -1},
     "logo": None,
 }

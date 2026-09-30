@@ -32,7 +32,7 @@ wiki/                       AI-owned pages
   Content Creation/           everything needed to make a video
     Channel Home.md  Content Creation Index.md
     Editing System/  Styles/  Designs/  References/(Creators, Analyzed Videos, Analyzed Texts)
-    Scripts/  Videos/<YYYY-MM-DD slug>/  Finished Posts/ (one page per scheduled/published post)
+    Scripts/  Videos/<YYYY-MM-DD slug>/  Finished Posts/ (one page per scheduled/published post)  Carousels/  Stories/  (playbooks)
   Knowledge/
     Knowledge Index.md  Concepts/<category>/  Summaries/<source group>/  Entities/  Maps/  Diagrams/
 Personal notes/             the creator's PRIVATE notes (see Hard don'ts)
