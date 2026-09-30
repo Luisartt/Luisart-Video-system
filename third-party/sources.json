@@ -1,0 +1,90 @@
+{
+  "_comment": "Every outside repository this system was built from. scripts/instalar_fuentes.py reads this file. kind=skill: installed with `npx skills add <repo> -a claude-code -y --copy` into .claude/skills/ (project level, tracked by skills-lock.json). kind=repo: shallow clone into tools/ (reference material, not a skill). Names in `skills` are the CURRENT upstream names (several were renamed upstream; `formerly` shows the older local name).",
+  "groups": {
+    "core": "Web research (Agent Reach), Remotion skills, browser tooling. Recommended for everyone.",
+    "design": "Design-quality skills and the DESIGN.md collection used to build and review design systems.",
+    "optional": "Only if you want 3D graphics."
+  },
+  "sources": [
+    {
+      "id": "agent-reach",
+      "group": "core",
+      "kind": "skill",
+      "name": "Agent Reach",
+      "repo": "Panniantong/Agent-Reach",
+      "url": "https://github.com/Panniantong/agent-reach",
+      "skills": ["agent-reach"],
+      "license": "MIT",
+      "used_for": "Reading the public internet for references and research (YouTube, Instagram, X, Reddit, GitHub, web pages, RSS...). Used by design-references-research and luisart-procesar-referencias.",
+      "note": "Its CLI checks the machine read-only by default; `--system` installs only after the user explicitly approves. Use the no-login channels; login/cookie channels only if the user sets them up themselves."
+    },
+    {
+      "id": "remotion-skills",
+      "group": "core",
+      "kind": "skill",
+      "name": "Remotion agent skills",
+      "repo": "remotion-dev/skills",
+      "url": "https://github.com/remotion-dev/skills",
+      "skills": ["*"],
+      "license": "see the repository (Remotion itself has its own license: free for individuals and small teams)",
+      "used_for": "Best practices for building video in Remotion (router skill + captions, render, studio, multimedia, SaaS, maps, upgrade...)."
+    },
+    {
+      "id": "playwright-cli",
+      "group": "core",
+      "kind": "skill",
+      "name": "Playwright CLI skill",
+      "repo": "microsoft/playwright-cli",
+      "url": "https://github.com/microsoft/playwright-cli",
+      "skills": ["playwright-cli"],
+      "license": "Apache-2.0",
+      "used_for": "Checking designs in a real browser (phone and desktop, light and dark) before delivering."
+    },
+    {
+      "id": "taste-skills",
+      "group": "design",
+      "kind": "skill",
+      "name": "Taste skills (design direction)",
+      "repo": "leonxlnx/taste-skill",
+      "url": "https://github.com/leonxlnx/taste-skill",
+      "skills": ["design-taste-frontend", "redesign-existing-projects", "industrial-brutalist-ui", "brandkit", "full-output-enforcement"],
+      "formerly": {"design-taste-frontend": "taste-skill", "redesign-existing-projects": "redesign-skill", "industrial-brutalist-ui": "brutalist-skill", "full-output-enforcement": "output-skill", "brandkit": "brandkit"},
+      "license": "MIT",
+      "used_for": "Setting the design direction (taste), redesigning, brutalist look, brand kits, and making sure outputs are complete."
+    },
+    {
+      "id": "impeccable",
+      "group": "design",
+      "kind": "skill",
+      "name": "Impeccable (design critique and audit)",
+      "repo": "pbakaus/impeccable",
+      "url": "https://github.com/pbakaus/impeccable",
+      "skills": ["impeccable"],
+      "license": "Apache-2.0",
+      "used_for": "`/impeccable critique` and `/impeccable audit` before delivering any design."
+    },
+    {
+      "id": "awesome-design-md",
+      "group": "design",
+      "kind": "repo",
+      "name": "awesome-design-md (DESIGN.md collection)",
+      "repo": "voltagent/awesome-design-md",
+      "url": "https://github.com/voltagent/awesome-design-md",
+      "target": "tools/design-repos/awesome-design-md",
+      "proof": "tools/design-repos/awesome-design-md/README.md",
+      "license": "MIT",
+      "used_for": "Reference DESIGN.md files of well-known brands: borrow principles, not identity (see design-system-import)."
+    },
+    {
+      "id": "img2threejs",
+      "group": "optional",
+      "kind": "skill",
+      "name": "img2threejs",
+      "repo": "img2threejs/img2threejs",
+      "url": "https://github.com/img2threejs/img2threejs",
+      "skills": ["img2threejs"],
+      "license": "Apache-2.0",
+      "used_for": "Turning an image into a Three.js 3D scene, only when 3D graphics are requested."
+    }
+  ]
+}

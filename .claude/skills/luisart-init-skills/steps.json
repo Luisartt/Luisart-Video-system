@@ -30,6 +30,18 @@
       ]
     },
     {
+      "id": "S02b",
+      "phase": "A. Foundation",
+      "skills": [
+        "install-third-party-skills"
+      ],
+      "title": "Install the outside skills: Agent Reach, Remotion, design skills (scripts/instalar_fuentes.py)",
+      "mode": "required",
+      "done_when": [
+        ".claude/skills/agent-reach/SKILL.md"
+      ]
+    },
+    {
       "id": "S03",
       "phase": "B. Brand",
       "skills": [

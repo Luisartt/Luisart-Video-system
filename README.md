@@ -50,6 +50,7 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | `channels/_template/social/` | renderizador de carruseles e historias (`render_social.cjs`) + ejemplos |
 | `.claude/skills/os-fallbacks/`, `scripts/diagnosticar.py` | **si algo falla, la IA busca la alternativa según tu sistema (Windows / Mac / Linux)** |
 | `docs/INSTALACION.md` | **instalación paso a paso para Windows y Mac** |
+| `third-party/sources.json`, `docs/FUENTES.md`, `scripts/instalar_fuentes.py` | **de dónde salió todo** (Agent Reach, Remotion, design systems…) y un comando que lo instala |
 | `docs/BUFFER.md`, `tools/buffer/` | recomendación y setup de Buffer + scripts para programar posts |
 | `docs/MODELOS-Y-CLIS.md` | qué modelos y CLIs usar (imágenes, video, voz, revisión) con opciones |
 | `scripts/` | instaladores (`.ps1` Windows · `.sh` Mac/Linux), herramientas de diseño (contraste, importar tokens, revisar robots.txt) |

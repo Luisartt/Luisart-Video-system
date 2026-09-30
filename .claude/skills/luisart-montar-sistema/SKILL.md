@@ -32,6 +32,8 @@ commands for both are in `docs/INSTALACION.md` (show it to the user if they ask)
    (Remotion and all `@remotion/*` at 4.0.529), install Playwright's Chromium, create the Python 3.12 venv, install PyTorch
    (CUDA build on Windows/NVIDIA, Metal-capable build on Apple Silicon) and `requirements-venv.txt`, and `facenet-pytorch` with
    `--no-deps` so it does not replace torch. Check: Windows `CUDA True`, Mac `MPS True` (the verifier prints it).
+3b. **Outside skills and sources:** `python scripts/instalar_fuentes.py --install` (skill `install-third-party-skills`): Agent Reach, Remotion skills,
+   Playwright CLI, design skills, awesome-design-md. Verify with `--check`.
 4. **Paths:** `python scripts/configurar_rutas.py --create --channel <slug> [--vault <folder>] [--cloud <folder>]` (`python3` on a Mac
    if `python` is missing) writes `brand/paths.json`, creates `channels/<slug>/` (from `channels/_template`),
    `out|media|archive|recordings/<slug>/` and the vault from `vault-template/`. The skills use placeholders (`{PROJECT}`, `{VAULT}`,

@@ -29,11 +29,12 @@ PyTorch 2.5.1 + CUDA 12.1, `transformers` 4.57 (Whisper large-v3-turbo), `qwen-t
 `facenet-pytorch` (`--no-deps`), `opencv`, `OpenTimelineIO`, `librosa`, `soundfile`. Los modelos se
 descargan solos la primera vez (~1.6 GB el de Whisper).
 
-## Skills de terceros (no incluidas; se instalan aparte)
+## Skills de terceros (no incluidas; `python scripts/instalar_fuentes.py --install` las instala; detalle en `docs/FUENTES.md`)
 | Skill | Fuente |
 |---|---|
-| remotion-best-practices | `npx skills add remotion-dev/skills` |
-| taste-skill, redesign-skill, brutalist-skill, brandkit, output-skill | https://github.com/leonxlnx/taste-skill |
+| remotion-best-practices (+10) | `npx skills add remotion-dev/skills` |
+| **agent-reach** (investigar en internet) | https://github.com/Panniantong/agent-reach |
+| design-taste-frontend, redesign-existing-projects, industrial-brutalist-ui, brandkit, full-output-enforcement | https://github.com/leonxlnx/taste-skill |
 | impeccable | https://github.com/pbakaus/impeccable |
 | playwright-cli | https://github.com/microsoft/playwright-cli |
 | img2threejs | https://github.com/img2threejs/img2threejs |

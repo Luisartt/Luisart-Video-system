@@ -51,6 +51,7 @@ versions, and independent review with Codex.
 | `channels/_template/social/` | carousel and story renderer (`render_social.cjs`) + examples |
 | `.claude/skills/os-fallbacks/`, `scripts/diagnosticar.py` | **if something fails, the AI picks the alternative for your system (Windows / Mac / Linux)** |
 | `docs/INSTALACION.md` | **step-by-step installation for Windows and Mac** |
+| `third-party/sources.json`, `docs/FUENTES.md`, `scripts/instalar_fuentes.py` | **where everything came from** (Agent Reach, Remotion, design systems…) and one command that installs it |
 | `docs/BUFFER.md`, `tools/buffer/` | Buffer recommendation and setup + scripts to schedule posts |
 | `docs/MODELOS-Y-CLIS.md` | which models and CLIs to use (images, video, voice, review), with options |
 | `scripts/` | installers (`.ps1` Windows · `.sh` Mac/Linux), design tools (contrast, token import, robots.txt check) |

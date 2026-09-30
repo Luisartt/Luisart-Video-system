@@ -57,6 +57,13 @@ from untrusted sources to get around an error.
 | Port 9333 busy (Buffer window) | change the port in `tools/buffer/abrir.cjs` **and** `pw.cjs` (same number) | same | same |
 | Google Fonts unreachable (offline renders) | install the brand fonts on the system (double-click the `.ttf`) and keep the same family names | install with Font Book | `~/.fonts` + `fc-cache -f` |
 
+### 4b. Installing the outside skills (`scripts/instalar_fuentes.py`)
+| Failure | Any OS |
+|---|---|
+| `npx skills add` fails (network, proxy, old Node) | check `node -v` (24.x) and the network; retry once; or install by hand with the command printed by `--dry-run`; or clone the repo (`git clone --depth 1 <url>`) and copy its skill folder into `.claude/skills/<name>/` |
+| `git clone` fails for a reference repo | retry on another network, or download the ZIP from the repository page and unzip it into `tools/design-repos/<name>/` |
+| Skill installed but not visible | Claude Code loads skills at session start: ask the user to restart the session |
+
 ### 5. Getting reference videos
 | Failure | Any OS |
 |---|---|

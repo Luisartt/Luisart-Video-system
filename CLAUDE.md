@@ -17,7 +17,8 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
 
 ## The guided path (skills)
 `luisart-init-skills` (the conductor; `os-fallbacks` is consulted whenever a step fails: runs all of these in order, `steps.json`) → `video-system-start` (intake) →
-`luisart-montar-sistema` (computer setup) → `design-system-create` **or**
+`luisart-montar-sistema` (computer setup) → `install-third-party-skills` (Agent Reach, Remotion, design skills; sources in
+`docs/FUENTES.md`, installer `scripts/instalar_fuentes.py`) → `design-system-create` **or**
 `design-system-import` → `design-references-research` (sites; guide in
 `.claude/skills/design-references-research/references/sites.md`) → `graphics-from-design-system` →
 `wiki-vault-setup` (notes, RAW inboxes, wiki) → `luisart-configurar-estilo` (style profile; with reference videos or from the

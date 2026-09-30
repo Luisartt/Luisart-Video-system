@@ -22,3 +22,15 @@ __pycache__/
 *.pyc
 brand/paths.json
 brand/system.json
+# third-party skills are installed at setup time (python scripts/instalar_fuentes.py), never committed
+.agents/
+.claude/skills/agent-reach/
+.claude/skills/remotion-*/
+.claude/skills/playwright-cli/
+.claude/skills/design-taste-frontend/
+.claude/skills/redesign-existing-projects/
+.claude/skills/industrial-brutalist-ui/
+.claude/skills/brandkit/
+.claude/skills/full-output-enforcement/
+.claude/skills/impeccable/
+.claude/skills/img2threejs/

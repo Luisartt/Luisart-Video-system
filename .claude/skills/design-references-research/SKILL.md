@@ -50,7 +50,8 @@ what they like: you show, they react ("yes / no / that part only"), you learn.
    PARTIAL / BLOCKED / UNKNOWN from the site's robots.txt. Treat BLOCKED and UNKNOWN as human-only:
    hand the user the link, ask them to open it and tell you (or paste) what they liked, and move on.
    Never work around a block (no proxies, no spoofed agents).
-3. **Choose the lightest tool that works**, in this order: (a) the built-in browser pane for looking at a
+3. **Choose the lightest tool that works**, in this order: (0) the `agent-reach` skill when installed (skill `install-third-party-skills`;
+   `agent-reach doctor --json` shows which channel works; no-login channels only); (a) the built-in browser pane for looking at a
    page and reading its text; (b) web fetch/search tools for single pages; (c) Firecrawl (map, scrape)
    if a connector is installed — one site at a time, few pages; (d) a social-media reader skill for public
    reels/posts. Do not crawl galleries wholesale: sample a handful of pages per site.

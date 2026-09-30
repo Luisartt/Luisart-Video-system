@@ -16,7 +16,7 @@ Ask first: **"Where does your design system live?"** and pick the route:
 | A website (theirs, or one whose look they want) | **URL** |
 | A CSS / Tailwind / theme file | **CSS** |
 | Design tokens (W3C, Style Dictionary, Figma Tokens Studio export) | **JSON** |
-| A `DESIGN.md` (see `awesome-design-md`) | **DESIGN.md** |
+| A `DESIGN.md` (see `awesome-design-md`; after `install-third-party-skills` they are in `tools/design-repos/awesome-design-md/design-md/<brand>/DESIGN.md`) | **DESIGN.md** |
 | A brand-guide PDF or images of the brand | **Visual** |
 | A Figma file | **Figma** |
 

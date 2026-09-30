@@ -8,7 +8,7 @@ description: The master run. Once the repository is cloned, running this skill e
 You are the conductor. The user may be non-technical: **you run every step**; they answer questions and sign
 in where unavoidable. Speak their language (ask it first, in S01). One question at a time.
 
-The order lives in one file, `.claude/skills/luisart-init-skills/steps.json` (19 steps, phases A–G, covering every
+The order lives in one file, `.claude/skills/luisart-init-skills/steps.json` (20 steps, phases A–G, covering every
 skill of the repository). Progress lives in `brand/progress.json`, shown to humans in `brand/PROGRESS.md`; both are
 managed by `python scripts/progreso.py`. Paths come from `brand/paths.json` (created in S02; placeholders such as
 `{PROJECT}` are resolved from it, see `CLAUDE.md`).
@@ -65,7 +65,7 @@ Then go to 1.
 ## Step map (the same as `steps.json`)
 | Phase | Steps |
 |---|---|
-| A. Foundation | S01 `video-system-start` · S02 `luisart-montar-sistema` |
+| A. Foundation | S01 `video-system-start` · S02 `luisart-montar-sistema` · S02b `install-third-party-skills` |
 | B. Brand | S03 `design-references-research` · S04 `design-system-create` / `design-system-import` · S05 `graphics-from-design-system` |
 | C. Knowledge | S06 `wiki-vault-setup` · S07 `luisart-procesar-referencias` · S08 `luisart-procesar-material` |
 | D. Style and rules | S09 `luisart-reglas` · S10 `luisart-configurar-estilo` · S11 `luisart-diseno-sonoro` · S12 `luisart-animaciones-pizarra` |
