@@ -1,7 +1,7 @@
 """Turn a transcribe_parts.py result into a readable Markdown transcript with [mm:ss] paragraph stamps.
 
 Usage:
-  .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/whisper_to_md.py \
+  python -W ignore .claude/skills/luisart-editar-short/scripts/whisper_to_md.py \
     <transcript.json> <out.md> [--pause 1.2] [--max-words 70]
 
 A new paragraph starts after a pause of at least --pause seconds (default 1.2) or when a paragraph

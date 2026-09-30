@@ -37,7 +37,7 @@ the second one is the manual the AI will follow forever.
    that come from `brand/paths.json`. If the user renames a folder or moves the vault, they (or you) edit that file
    and run `python scripts/configurar_rutas.py --check`. To customise a skill itself, edit its `SKILL.md`: the
    placeholders keep working.
-4. **Connect the tools** (do it for them): install Obsidian (`winget install Obsidian.Obsidian` on Windows),
+4. **Connect the tools** (do it for them): install Obsidian (`winget install Obsidian.Obsidian` on Windows · `brew install --cask obsidian` on a Mac),
    open the folder as a vault; plugins to enable: Web Clipper (browser extension), Obsidian Git (optional),
    Dataview (optional). **Import both Web Clipper templates**
    (`Content/rawcc/_web-clipper-template.json`, `Knowledge-Sources/rawc/_web-clipper-template.json`):

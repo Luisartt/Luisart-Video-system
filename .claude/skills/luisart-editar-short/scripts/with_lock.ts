@@ -4,7 +4,7 @@
 // Usage (from the project root):
 //   npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- <command> [args...]
 // Example:
-//   npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- .venv/Scripts/python.exe -W ignore core/scripts/py/face_track.py in.mp4 out.json
+//   npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- python -W ignore core/scripts/py/face_track.py in.mp4 out.json
 import { closeSync, mkdirSync, openSync, statSync, unlinkSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 

@@ -48,9 +48,9 @@ creators or brands they admire. Save to `brand.json`.
 
 ### Stage 2 — Set up the computer
 Check and, if needed, install everything: run `.claude/skills/luisart-montar-sistema/scripts/verificar_equipo.ps1`
-(Windows) and follow the skill `luisart-montar-sistema` (tools, Node, FFmpeg, Python 3.12, Remotion
-via `npm ci`, the Python environment, Whisper). Also `scripts/instalar-herramientas.ps1` and
-`scripts/instalar-proyecto.ps1`. On macOS/Linux translate the same tools (brew/apt); say so.
+(Windows; on macOS/Linux use `verificar_equipo.sh`) and follow the skill `luisart-montar-sistema` (tools, Node, FFmpeg, Python 3.12, Remotion
+via `npm ci`, the Python environment, Whisper). Also `scripts/instalar-herramientas.ps1` (Windows) / `.sh` (Mac) and
+`scripts/instalar-proyecto.ps1`. On a Mac use `scripts/instalar-herramientas.sh` and `instalar-proyecto.sh` (Homebrew); details in `docs/INSTALACION.md`.
 Then create the paths with `python scripts/configurar_rutas.py --create --channel <slug> [--vault <folder>] [--cloud <folder>]`
 (writes `brand/paths.json`; the user can edit it later). Check the AI CLIs with `docs/MODELOS-Y-CLIS.md`; for
 images and generated clips the tool just goes through Codex or the Higgsfield API and picks the model itself.

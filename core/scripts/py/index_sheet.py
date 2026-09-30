@@ -1,7 +1,7 @@
 """Rebuilds the overview sheets of a style library's renders.
 
 Usage (from the project root):
-  .venv/Scripts/python.exe core/scripts/py/index_sheet.py <renderDir> [--refresh <id> ...]
+  python core/scripts/py/index_sheet.py <renderDir> [--refresh <id> ...]
 
 - Thumbnails live in <renderDir>/_thumbs/<id>.png: the frame at 80 % of the clip (content fully
   built) with a white strip carrying the ID. --refresh re-extracts the listed IDs; missing thumbs are
@@ -15,6 +15,21 @@ import subprocess
 import sys
 
 from PIL import Image, ImageDraw, ImageFont
+
+FONT_CANDIDATES = [  # first one that exists: Windows, macOS, Linux
+    "C:/Windows/Fonts/arial.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf", "/Library/Fonts/Arial.ttf",
+    "/System/Library/Fonts/Helvetica.ttc", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+]
+
+
+def load_font(size):
+    for p in FONT_CANDIDATES:
+        if os.path.exists(p):
+            try:
+                return ImageFont.truetype(p, size)
+            except OSError:
+                pass
+    return ImageFont.load_default()
 
 
 def duration(path):
@@ -40,10 +55,7 @@ def main():
     render_dir = sys.argv[1]
     refresh = set(sys.argv[sys.argv.index("--refresh") + 1:]) if "--refresh" in sys.argv else set()
     os.makedirs(os.path.join(render_dir, "_thumbs"), exist_ok=True)
-    try:
-        font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 15)
-    except OSError:
-        font = ImageFont.load_default()
+    font = load_font(15)
     clips = sorted(f[:-4] for f in os.listdir(render_dir) if f.endswith(".mp4"))
     order = []
     for f in sorted(os.listdir(render_dir)):

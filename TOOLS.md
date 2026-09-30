@@ -1,10 +1,10 @@
 # Herramientas que necesita el sistema
 
-Todo se instala con `scripts/instalar-herramientas.ps1` (programas) y `scripts/instalar-proyecto.ps1`
-(dependencias del proyecto). Versiones con las que se construyó y verificó (2026-09-30).
+Todo se instala con `scripts/instalar-herramientas` (programas) y `scripts/instalar-proyecto` (dependencias del proyecto):
+`.ps1` en Windows, `.sh` en Mac/Linux. Instrucciones paso a paso: `docs/INSTALACION.md`. Versiones con las que se construyó y verificó (2026-09-30).
 
-## Programas (winget)
-| Herramienta | Para qué | Versión probada | winget id |
+## Programas (Windows: winget · Mac: Homebrew)
+| Herramienta | Para qué | Versión probada | winget id (Windows) · fórmula brew (Mac) |
 |---|---|---|---|
 | Git + Git LFS + GitHub CLI | repositorios | git 2.55 · lfs 3.7 · gh 2.101 | `Git.Git` `Git.GitLFS` `GitHub.cli` |
 | Node.js | Remotion y scripts | 24.19 | `OpenJS.NodeJS` |

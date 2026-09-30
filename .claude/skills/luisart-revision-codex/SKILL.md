@@ -8,7 +8,7 @@ description: Runs an independent OpenAI Codex review of a @soyluisart deliverabl
 > `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
 > `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
 > `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
-> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> folder · `{PYTHON}` the project's Python (venv: `.venv/Scripts/python.exe` on Windows, `.venv/bin/python` on macOS/Linux). Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
 > prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
 > copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
 
@@ -71,7 +71,7 @@ npx tsx .claude/skills/luisart-revision-codex/scripts/caption_changes.ts <V>/sce
    drawn in:
 
 ```bash
-.venv/Scripts/python.exe .claude/skills/luisart-revision-codex/scripts/review_frames.py <O>/SLA-<v>-short-pizarra.mp4 <O>/review/pizarra --every 0.5 --extra <changes, comma-separated>
+{PYTHON} .claude/skills/luisart-revision-codex/scripts/review_frames.py <O>/SLA-<v>-short-pizarra.mp4 <O>/review/pizarra --every 0.5 --extra <changes, comma-separated>
 ```
 
    Look at the sheets yourself first; they are also what you check findings against.
@@ -80,7 +80,7 @@ npx tsx .claude/skills/luisart-revision-codex/scripts/caption_changes.ts <V>/sce
    `<V>/review/head-<target>.md`, fill it in, then paste the rules and code with line numbers:
 
 ```bash
-.venv/Scripts/python.exe .claude/skills/luisart-revision-codex/scripts/make_prompt.py <V>/review/prompt-pizarra.txt \
+{PYTHON} .claude/skills/luisart-revision-codex/scripts/make_prompt.py <V>/review/prompt-pizarra.txt \
   --head <V>/review/head-pizarra.md --frames <O>/review/pizarra/frames.json -- \
   .claude/skills/luisart-reglas/SKILL.md {CHANNEL_DIR}/CHANNEL.md:<★ section lines> \
   <V>/scenes/pizarra/PizShort.tsx <V>/scenes/pizarra/layout.ts <V>/scenes/pizarra/groups.ts \

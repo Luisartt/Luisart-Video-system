@@ -14,37 +14,40 @@ copy. Heavy or rebuildable things (`node_modules`, `.venv`, model weights, `out/
 channel folder live in their own fork; their vault lives in its own private repository.
 
 ## Steps (in order; check each; one heavy job at a time)
+**Detect the operating system first** (`uname -s`, or `$env:OS` on Windows) and use the matching column. The exact
+commands for both are in `docs/INSTALACION.md` (show it to the user if they ask).
 
-1. **Check the machine** (read-only): `powershell -File .claude\skills\luisart-montar-sistema\scripts\verificar_equipo.ps1`.
-   Requirements: Windows 10/11 (macOS/Linux: translate the tools to brew/apt and say so), ≥ 16 GB RAM,
-   ≥ 60 GB free disk, NVIDIA GPU with driver ≥ 551.76 for hardware video encoding (without a GPU everything
-   works but renders and Whisper are much slower; set `hardwareAcceleration` in `core/lib/render-settings.ts`).
-2. **Tools:** `powershell -ExecutionPolicy Bypass -File scripts\instalar-herramientas.ps1` (Git, Git LFS,
-   GitHub CLI, Node 24, FFmpeg, yt-dlp, Python 3.12, SoX, Deno). Reopen the terminal so PATH refreshes. The AI
-   CLIs (Claude Code, Codex) are covered in `docs/MODELOS-Y-CLIS.md`.
-3. **Project dependencies:** `powershell -ExecutionPolicy Bypass -File scripts\instalar-proyecto.ps1`
-   (`npm ci` → Remotion and all `@remotion/*` at 4.0.529; Python 3.12 venv; CUDA torch first, then
-   `requirements-venv.txt`; `facenet-pytorch` with `--no-deps` so it does not replace torch). Check
-   `.venv\Scripts\python.exe -c "import torch;print(torch.cuda.is_available())"` → `True`.
-4. **Paths:** `python scripts/configurar_rutas.py --create --channel <slug> [--vault <folder>] [--cloud <folder>]`
-   writes `brand/paths.json`, creates `channels/<slug>/` (from `channels/_template`), `out|media|archive|recordings/<slug>/`
-   and the vault from `vault-template/`. The skills use placeholders (`{PROJECT}`, `{VAULT}`, …) that come from
-   that file; the user can edit it any time and run `python scripts/configurar_rutas.py --check`.
-5. **Model weights** download on first use into `%USERPROFILE%\.cache\huggingface` (Whisper large-v3-turbo
-   ≈ 1.6 GB). Warm it with a 5-second clip through `transcribe_parts.py` so the first real job does not stall.
-   Chrome for Testing downloads on the first `npm run gpu`.
-6. **Render settings for this machine:** `core/lib/render-settings.ts` holds concurrency, timeout and hardware
-   flags measured on the author's laptop (i7-13620H, RTX 4050 6 GB, 15.7 GB RAM: concurrency 3, timeout
-   120 s, NVENC required). Run `npm run gpu`; if this machine differs, run `npx remotion benchmark` on one short
-   composition and update that file (more RAM → higher concurrency; no NVENC → `hardwareAcceleration = "if-possible"`).
-7. **Media:** audio is not in the repo (licences). The user brings their own music/SFX or downloads
-   licence-clean ones; `media/soyluisart/audio/LICENCIAS.md` shows how the example library was sourced. The AI never
-   picks the user's music.
-8. **Prove it works (mandatory):** (a) `npm run gpu` all "Hardware accelerated"; (b) `npx tsc --noEmit`;
-   (c) `npx remotion still core/index.ts TPL-title-card out/_setup-test.png --frame=60`; (d) `transcribe_parts.py`
-   on a 5 s clip; (e) `codex --version`, `claude --version`, `yt-dlp --version`; (f) `verificar_equipo.ps1` again →
-   every line OK. Delete the test outputs afterwards.
-9. **Record it:** note the machine (name, date, what passed) in `brand/PROGRESS.md`.
+1. **Check the machine** (read-only). Windows: `powershell -File .claude\skills\luisart-montar-sistema\scriptserificar_equipo.ps1`.
+   macOS/Linux: `bash .claude/skills/luisart-montar-sistema/scripts/verificar_equipo.sh`.
+   Requirements: Windows 10/11 or macOS 13+, ≥ 16 GB RAM, ≥ 60 GB free disk. **GPU for the local AI parts (Whisper, person matte,
+   face tracking): NVIDIA with driver ≥ 551.76 on Windows; Apple Silicon (M1+) on a Mac.** Without them the graphics, carousels,
+   stories, Buffer and wiki still work; renders and Whisper are slower. An **Intel Mac** cannot run the local AI parts: say so.
+2. **Tools.** Windows: `powershell -ExecutionPolicy Bypass -File scripts\instalar-herramientas.ps1` (winget). macOS:
+   `bash scripts/instalar-herramientas.sh` (Homebrew; if Homebrew is missing the script says how, and the user types their Mac
+   password when the official installer asks). Installs Git, Git LFS, GitHub CLI, Node 24, FFmpeg, yt-dlp, Python 3.12, SoX, Deno.
+   Reopen the terminal so PATH refreshes. The AI CLIs (Claude Code, Codex) are covered in `docs/MODELOS-Y-CLIS.md`.
+3. **Project dependencies.** Windows: `scripts\instalar-proyecto.ps1`. macOS: `bash scripts/instalar-proyecto.sh`. Both run `npm ci`
+   (Remotion and all `@remotion/*` at 4.0.529), install Playwright's Chromium, create the Python 3.12 venv, install PyTorch
+   (CUDA build on Windows/NVIDIA, Metal-capable build on Apple Silicon) and `requirements-venv.txt`, and `facenet-pytorch` with
+   `--no-deps` so it does not replace torch. Check: Windows `CUDA True`, Mac `MPS True` (the verifier prints it).
+4. **Paths:** `python scripts/configurar_rutas.py --create --channel <slug> [--vault <folder>] [--cloud <folder>]` (`python3` on a Mac
+   if `python` is missing) writes `brand/paths.json`, creates `channels/<slug>/` (from `channels/_template`),
+   `out|media|archive|recordings/<slug>/` and the vault from `vault-template/`. The skills use placeholders (`{PROJECT}`, `{VAULT}`,
+   `{PYTHON}` …) that come from that file; the user can edit it any time and run `--check`.
+5. **Model weights** download on first use into the Hugging Face cache (Whisper large-v3-turbo ≈ 1.6 GB). Warm it with a 5-second
+   clip through `transcribe_parts.py`. The device is chosen automatically: CUDA, then Apple Metal, then CPU.
+6. **Render settings:** `core/lib/render-settings.ts` is platform-aware (hardware encoder when available: NVENC or VideoToolbox;
+   `gl` = `angle` on Windows only). Defaults are safe for 16 GB. Override with `REMOTION_HW=required|disable` and
+   `REMOTION_CONCURRENCY=<n>`; benchmark with `npx remotion benchmark` and adjust if the machine is stronger or weaker.
+7. **Media:** audio is not in the repo (licences). The user brings their own music/SFX or downloads licence-clean ones;
+   `media/soyluisart/audio/LICENCIAS.md` shows how the example library was sourced. The AI never picks the user's music.
+8. **Prove it works (mandatory):** (a) the verifier shows no missing items; (b) `npx tsc --noEmit`; (c)
+   `npx remotion still core/index.ts TPL-title-card out/_setup-test.png --frame=60`; (d) `transcribe_parts.py` on a 5 s clip;
+   (e) `codex --version`, `claude --version`, `yt-dlp --version`. Delete the test outputs afterwards.
+9. **Record it:** note the machine (name, OS, date, what passed) in `brand/PROGRESS.md`.
+
+**Mac tips:** long renders with `caffeinate -i <command>`; if `node`/`python3.12` are "not found" after installing, open a new
+Terminal or run `eval "$(/opt/homebrew/bin/brew shellenv)"`; macOS may ask to let Terminal access Documents: allow.
 
 ## Moving to another computer
 `git clone` your fork → steps 1–9 again (steps 2–3 are the same, step 4 uses that machine's folders) → bring

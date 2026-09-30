@@ -1,20 +1,24 @@
 // Read by both remotion.config.ts and the render script (Remotion's Node APIs don't read the config file).
-// Values below come from the hardware check on this machine (RTX 4050 Laptop, 6 GB VRAM, driver 581.57).
+// Works on Windows, macOS and Linux. The numbers in the comments were measured on the author's Windows laptop
+// (i7-13620H, RTX 4050 6 GB, 15.7 GB RAM); run `npx remotion benchmark <id> --concurrencies=2,3,4 --frames=0-89`
+// on YOUR machine and adjust `concurrency` (more RAM/cores -> higher).
 
 export const publicDir = "media";
 
 export const chromeMode = "chrome-for-testing" as const;
-export const gl = "angle" as const;
 
-// NVIDIA driver 581.57 >= the 551.76 NVENC needs, so hardware video encoding is required.
-export const hardwareAcceleration = "required" as const;
-// ProRes 4444 alpha overlays can't use NVENC; the render script forces CPU encoding for those.
+// OpenGL renderer: "angle" is what works best on Windows; on macOS and Linux Remotion's default is right.
+export const gl = process.platform === "win32" ? ("angle" as const) : null;
+
+// "if-possible" uses the hardware video encoder when there is one (NVENC on NVIDIA, VideoToolbox on a Mac) and falls
+// back to software otherwise. Force it with REMOTION_HW=required (fail if no hardware) or REMOTION_HW=disable.
+const hw = process.env.REMOTION_HW;
+export const hardwareAcceleration = (hw === "required" || hw === "disable" ? hw : "if-possible") as "required" | "disable" | "if-possible";
+// ProRes 4444 alpha overlays are always encoded in software.
 export const alphaHardwareAcceleration = "disable" as const;
 
 export const videoBitrate = "8M";
 
-// i7-13620H (16 threads), 15.7 GB RAM but often only ~1.5 GB free: the 30 s default browser
-// setup timed out at the default concurrency. Benchmark once template demos exist
-// (npx remotion benchmark <id> --concurrencies=<a>,<b>,<c> --frames=0-89) and replace this.
-export const concurrency = 3;
+// Default 3 is safe for 16 GB of RAM. The browser setup timed out at higher concurrency when little RAM was free.
+export const concurrency = Number(process.env.REMOTION_CONCURRENCY || 3);
 export const timeoutInMilliseconds = 120000;

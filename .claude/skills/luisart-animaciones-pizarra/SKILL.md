@@ -8,7 +8,7 @@ description: How to create, extend and deliver Luisart animations for @soyluisar
 > `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
 > `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
 > `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
-> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> folder · `{PYTHON}` the project's Python (venv: `.venv/Scripts/python.exe` on Windows, `.venv/bin/python` on macOS/Linux). Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
 > prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
 > copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
 
@@ -127,7 +127,7 @@ Library clips are reusable graphics, not video deliverables (the finished videos
 ```bash
 npx tsx core/scripts/render-batch-locked.ts out/{CHANNEL}/pizarra SLA-piz-<element>-<variant>-v SLA-piz-<element>-<variant> …
 npm run qa -- out/{CHANNEL}/pizarra/SLA-piz-<element>-<variant>-v.mp4 … --allow-white
-.venv/Scripts/python.exe core/scripts/py/index_sheet.py out/{CHANNEL}/pizarra --refresh SLA-piz-<element>-<variant>-v …
+{PYTHON} core/scripts/py/index_sheet.py out/{CHANNEL}/pizarra --refresh SLA-piz-<element>-<variant>-v …
 ```
 
 - One batch = one bundle, all IDs rendered in sequence under the render lock. Never start

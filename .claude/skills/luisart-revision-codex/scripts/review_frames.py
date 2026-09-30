@@ -1,7 +1,7 @@
 """Contact sheets of a rendered edit for a Codex review (and for our own checks).
 
 Usage (from the project root):
-  .venv/Scripts/python.exe .claude/skills/luisart-revision-codex/scripts/review_frames.py \
+  python .claude/skills/luisart-revision-codex/scripts/review_frames.py \
       <video.mp4> <outDir> [--every 0.5] [--extra 12,48,301] [--extra-after 2] \
       [--cols 6] [--rows 3] [--width 1600] [--no-zones]
 
@@ -21,6 +21,21 @@ import subprocess
 import sys
 
 from PIL import Image, ImageDraw, ImageFont
+
+FONT_CANDIDATES = [  # first one that exists: Windows, macOS, Linux
+    "C:/Windows/Fonts/arial.ttf", "/System/Library/Fonts/Supplemental/Arial.ttf", "/Library/Fonts/Arial.ttf",
+    "/System/Library/Fonts/Helvetica.ttc", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+]
+
+
+def load_font(size):
+    for p in FONT_CANDIDATES:
+        if os.path.exists(p):
+            try:
+                return ImageFont.truetype(p, size)
+            except OSError:
+                pass
+    return ImageFont.load_default()
 
 
 def arg(name, default=None):
@@ -57,10 +72,7 @@ def main():
     tile_w = sheet_w // cols
     tile_h = int(round(tile_w * h / w))
     label_h = 24
-    try:
-        font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 15)
-    except OSError:
-        font = ImageFont.load_default()
+    font = load_font(15)
 
     k = tile_w / w
     vertical = h > w

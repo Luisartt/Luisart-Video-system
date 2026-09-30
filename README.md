@@ -10,7 +10,8 @@ empaquetado para que cualquiera lo use: transcripción con Whisper, cortes, anim
 [Remotion](https://www.remotion.dev) que siguen *tu* design system, efectos de sonido, subtítulos que
 respetan la cara, versiones vertical y horizontal y revisión independiente con Codex.
 
-## Empezar (3 pasos)
+## Empezar (3 pasos) — Windows y Mac
+> Funciona en **Windows y en Mac**. Instrucciones paso a paso para los dos: [`docs/INSTALACION.md`](docs/INSTALACION.md).
 1. **Clona** el repositorio y ábrelo con [Claude Code](https://claude.com/claude-code) en esa carpeta.
    ```bash
    git clone https://github.com/Luisartt/Luisart-Video-system.git
@@ -47,9 +48,10 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | `vault-template/` | esqueleto de tu wiki: manual `CLAUDE.md`, bandejas, plantillas, Web Clipper |
 | `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md` | **videos con referencias (Ruta A) o solo con tu design system (Ruta B)** |
 | `channels/_template/social/` | renderizador de carruseles e historias (`render_social.cjs`) + ejemplos |
+| `docs/INSTALACION.md` | **instalación paso a paso para Windows y Mac** |
 | `docs/BUFFER.md`, `tools/buffer/` | recomendación y setup de Buffer + scripts para programar posts |
 | `docs/MODELOS-Y-CLIS.md` | qué modelos y CLIs usar (imágenes, video, voz, revisión) con opciones |
-| `scripts/` | instaladores (Windows), herramientas de diseño (contraste, importar tokens, revisar robots.txt) |
+| `scripts/` | instaladores (`.ps1` Windows · `.sh` Mac/Linux), herramientas de diseño (contraste, importar tokens, revisar robots.txt) |
 | `core/` | raíz de Remotion, render con candado, QA, matte y seguimiento de cara |
 | `TOOLS.md` | todas las herramientas con versiones y fuentes |
 

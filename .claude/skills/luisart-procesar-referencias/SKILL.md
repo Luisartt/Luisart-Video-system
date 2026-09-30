@@ -8,7 +8,7 @@ description: Process the video references Luisart drops in the vault's "{CONTENT
 > `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
 > `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
 > `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
-> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> folder · `{PYTHON}` the project's Python (venv: `.venv/Scripts/python.exe` on Windows, `.venv/bin/python` on macOS/Linux). Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
 > prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
 > copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
 
@@ -81,9 +81,9 @@ Outputs in the repo: `media/{CHANNEL}/automated-research/style-refs/<creador>/<f
 jobs one at a time under the render lock
 (`npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- <cmd>`).
 - Scene cuts: `ffmpeg -i v.mp4 -vf "select='gt(scene,0.3)',showinfo" -f null -` → shot list, cuts/min.
-- Contact sheet 1 frame/s (drawtext needs `fontfile='C\:/Windows/Fonts/arial.ttf'`), plus a strip
+- Contact sheet 1 frame/s (drawtext needs `fontfile='<a font file>' (Windows `C\:/Windows/Fonts/arial.ttf`, macOS `/System/Library/Fonts/Supplemental/Arial.ttf`)`), plus a strip
   of 10 consecutive frames on each distinctive animation (speed/easing).
-- Transcript with word times: `.venv/Scripts/python.exe .claude/skills/luisart-editar-short/scripts/transcribe_parts.py`
+- Transcript with word times: `{PYTHON} .claude/skills/luisart-editar-short/scripts/transcribe_parts.py`
   (see that skill for arguments) → align captions, text and SFX to words.
 - Audio: `ffmpeg -af ebur128` (integrated LUFS voice/total), music present? level under voice,
   SFX events (onsets between words; spectrogram `showspectrumpic` if needed), whooshes yes/no.

@@ -57,7 +57,7 @@ LOCK ffmpeg -y -i recordings/{CHANNEL}/<v>-raw.mp4 \
 - Check A/V sync after ingest (clap or a plosive): VFR phone files can drift; `aresample=async=1`
   handles it in practice.
 - Contact sheet of the working copy for your own look (`_aroll-sheet.png`):
-  `.venv/Scripts/python.exe .claude/skills/luisart-revision-codex/scripts/review_frames.py <M>/aroll-1080x1920.mp4 <M>/_aroll-sheet --every 2`.
+  `{PYTHON} .claude/skills/luisart-revision-codex/scripts/review_frames.py <M>/aroll-1080x1920.mp4 <M>/_aroll-sheet --every 2`.
 
 ## 2. Transcribe
 
@@ -65,7 +65,7 @@ whisper-large-v3-turbo through the `.venv`, split in pauses so no part crosses t
 boundary (the pipeline hallucinates "Gracias…" and repeated lines there):
 
 ```bash
-LOCK .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <M>/aroll-1080x1920.mp4 <M>/transcript-words.json
+LOCK {PYTHON} -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <M>/aroll-1080x1920.mp4 <M>/transcript-words.json
 ```
 
 Output `{"text", "words": [{text, start, end}], "splits"}` in source seconds — the same shape the
@@ -127,7 +127,7 @@ Robust Video Matting on the GPU, then VP9-with-alpha WebM (what Remotion's `Offt
 transparent` plays; ProRes is too heavy to bundle):
 
 ```bash
-LOCK .venv/Scripts/python.exe core/scripts/py/matte.py <M>/aroll-1080x1920.mp4 <M>/aroll-person-alpha.mov
+LOCK {PYTHON} core/scripts/py/matte.py <M>/aroll-1080x1920.mp4 <M>/aroll-person-alpha.mov
 LOCK ffmpeg -y -i <M>/aroll-person-alpha.mov -c:v libvpx-vp9 -pix_fmt yuva420p -b:v 0 -crf 24 -row-mt 1 -auto-alt-ref 0 -an <M>/aroll-person-alpha.webm
 ```
 
@@ -139,7 +139,7 @@ LOCK ffmpeg -y -i <M>/aroll-person-alpha.mov -c:v libvpx-vp9 -pix_fmt yuva420p -
 ## 6. Face track
 
 ```bash
-LOCK .venv/Scripts/python.exe -W ignore core/scripts/py/face_track.py <M>/aroll-1080x1920.mp4 <M>/face-track.json
+LOCK {PYTHON} -W ignore core/scripts/py/face_track.py <M>/aroll-1080x1920.mp4 <M>/face-track.json
 ```
 
 MTCNN (facenet-pytorch, weights bundled), smoothed. Frames = `[x0, y0, x1, y1, eyeY, mouthY,
@@ -237,7 +237,7 @@ If a render times out, retry once with `--concurrency=2`.
 ```bash
 npm run qa -- <O>/SLA-<v>-short-pizarra.mp4 <O>/SLA-<v>-short-split.mp4 <O>/SLA-<v>-short-pizarra-h.mp4 --allow-white
 ffmpeg -hide_banner -nostats -i <O>/SLA-<v>-short-pizarra.mp4 -af ebur128=peak=true -f null - 2>&1 | tail -12
-LOCK .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <O>/SLA-<v>-short-pizarra.mp4 <O>/_words-pizarra.json --expect <M>/transcript-words.json --cuts <V>/cut/cuts.json
+LOCK {PYTHON} -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <O>/SLA-<v>-short-pizarra.mp4 <O>/_words-pizarra.json --expect <M>/transcript-words.json --cuts <V>/cut/cuts.json
 npx tsx <V>/scenes/pizarra/checkCaptions.ts
 ```
 

@@ -4,7 +4,7 @@ Codex's read-only sandbox can't start processes on Windows (CreateProcessAsUserW
 so it can't open files itself: everything it must judge goes into the prompt text.
 
 Usage (from the project root):
-  .venv/Scripts/python.exe .claude/skills/luisart-revision-codex/scripts/make_prompt.py <out.txt> \
+  python .claude/skills/luisart-revision-codex/scripts/make_prompt.py <out.txt> \
       --head <instructions.md> [--frames <frames.json>] -- <file> [<file> ...]
 
 - --head: the task text (what to review, the rule checklist, the answer format).

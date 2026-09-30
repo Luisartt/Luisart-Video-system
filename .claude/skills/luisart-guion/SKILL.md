@@ -8,7 +8,7 @@ description: Write or review the script (guion) of a @soyluisart video on a give
 > `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
 > `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
 > `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
-> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> folder · `{PYTHON}` the project's Python (venv: `.venv/Scripts/python.exe` on Windows, `.venv/bin/python` on macOS/Linux). Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
 > prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
 > copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
 

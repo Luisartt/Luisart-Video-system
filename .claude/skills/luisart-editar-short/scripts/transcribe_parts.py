@@ -5,7 +5,7 @@ Same model and settings as .firecrawl/whisper_words.py, plus the split and an op
 
 Usage (from the project root, under the render lock — it uses the GPU):
   npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- \
-    .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py \
+    python -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py \
     <audio-or-video> <out.json> [--max 28] [--lang spanish|english|auto] [--expect transcript-words.json [--cuts cut/cuts.json]]
 
 - Splits the audio into parts of at most --max seconds (default 28), each cut in the longest
@@ -70,10 +70,13 @@ def main():
     cuts = split_points(total, max_len, silences(src))
     bounds = [0.0] + cuts + [total]
 
+    os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")  # macOS
     import torch
     from transformers import pipeline
 
-    asr = pipeline("automatic-speech-recognition", model="openai/whisper-large-v3-turbo", torch_dtype=torch.float16, device="cuda:0")
+    dev = "cuda:0" if torch.cuda.is_available() else ("mps" if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available() else "cpu")
+    dtype = torch.float16 if dev.startswith("cuda") else torch.float32  # half precision only on NVIDIA
+    asr = pipeline("automatic-speech-recognition", model="openai/whisper-large-v3-turbo", torch_dtype=dtype, device=dev)
     lang = arg("--lang", "spanish")  # "spanish" (default), any Whisper language name ("english"), or "auto" to detect
     gen_kwargs = {"task": "transcribe"} if lang == "auto" else {"language": lang, "task": "transcribe"}
     words, texts = [], []

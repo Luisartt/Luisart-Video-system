@@ -64,6 +64,7 @@ def resolved(cfg):
         "KNOWLEDGE_DIR": knowledge_dir,
         "KNOWLEDGE_INBOX": f"{knowledge_dir}/{cfg['knowledge_inbox']}",
         "CLOUD": norm(cfg["cloud"]) if cfg.get("cloud") else "<cloud folder: not set in brand/paths.json>",
+        "PYTHON": project + ("/.venv/Scripts/python.exe" if os.name == "nt" else "/.venv/bin/python"),  # the project venv (Windows / macOS / Linux)
     }
 
 
@@ -119,6 +120,9 @@ def check():
     bad = 0
     for k, v in resolved(cfg).items():
         if k in ("CHANNEL",):
+            continue
+        if k == "PYTHON" and not os.path.exists(v):
+            print(f"NOT YET  {{{k}}} {v}  (created by the project install step)")
             continue
         ok = os.path.exists(v) if not v.startswith("<") else None
         state = "OK   " if ok else ("NOT SET" if ok is None else "MISSING")

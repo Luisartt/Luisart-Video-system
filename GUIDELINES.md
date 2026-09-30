@@ -105,7 +105,7 @@ once.
 - **FFmpeg `drawtext` crashes** ("Fontconfig error: Cannot load default config file", then a
   segmentation fault): the winget FFmpeg build has no fontconfig setup. Pass the font
   explicitly and it works (verified for the style-ref sheets):
-  `drawtext=fontfile='C\:/Windows/Fonts/arial.ttf':text='%{pts\:hms}':...`.
+  `drawtext=fontfile='<a font file>' (Windows `C\:/Windows/Fonts/arial.ttf`, macOS `/System/Library/Fonts/Supplemental/Arial.ttf`):text='%{pts\:hms}':...`.
 - **Lossless audio for a master:** `--codec=h264-mkv` with `--audio-codec=pcm-16` fails here
   ("does not support hardware acceleration on win32" with NVENC required). Render the video as
   usual (mp4) and the audio as a second locked render with `--codec=wav`, then master the wav and
@@ -117,10 +117,10 @@ once.
   hallucinate at its 30 s chunk boundary ("Gracias…", repeated lines). Split the audio in a pause
   and transcribe the halves; set `HF_HUB_OFFLINE=1` so it doesn't stall on Hugging Face requests.
   `transcribe_parts.py` (luisart-editar-short skill) does both automatically.
-- **Face box per frame (captions never over the face):** `.venv/Scripts/python.exe -W ignore
+- **Face box per frame (captions never over the face):** `{PYTHON} -W ignore
   core/scripts/py/face_track.py <aroll.mp4> <face-track.json>` — GPU, hold the render lock while it
   runs (~1 min for 44 s of 1080×1920). OpenCV 5's pip wheel no longer ships Haar cascades.
 - **Re-rendering many library clips:** `npx tsx core/scripts/render-batch-locked.ts <outDir> <id…>`
   bundles once and renders every ID under the render lock (green-screen clips as PNG + yuv444p).
   Then `npm run qa -- <files> --allow-white` and rebuild the overview sheets with
-  `.venv/Scripts/python.exe core/scripts/py/index_sheet.py <renderDir> --refresh <id…>`.
+  `{PYTHON} core/scripts/py/index_sheet.py <renderDir> --refresh <id…>`.

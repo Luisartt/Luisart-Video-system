@@ -8,7 +8,7 @@ description: Start a real @soyluisart video from the two things Luisart brings �
 > `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
 > `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
 > `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
-> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> folder · `{PYTHON}` the project's Python (venv: `.venv/Scripts/python.exe` on Windows, `.venv/bin/python` on macOS/Linux). Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
 > prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
 > copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
 
@@ -40,7 +40,7 @@ what he said.
    example a landscape recording for a script marked Short), decide with the rules above and
    state it; do not ask.
 3. **Transcribe** under the render lock, Spanish by default (`--lang english|auto` if needed):
-   `npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <audio or video> media/{CHANNEL}/automated-research/<v>/transcript-words.json --lang spanish`
+   `npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- {PYTHON} -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <audio or video> media/{CHANNEL}/automated-research/<v>/transcript-words.json --lang spanish`
    then the readable version with `whisper_to_md.py` (`**[mm:ss]**` paragraphs). Correct names and
    terms against the glossary; doubtful words stay flagged `(sic)`. Never summarise from memory:
    the transcript is the source.

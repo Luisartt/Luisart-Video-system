@@ -11,7 +11,7 @@ import {
 
 Config.setPublicDir(publicDir);
 Config.setChromeMode(chromeMode);
-Config.setChromiumOpenGlRenderer(gl);
+if (gl) Config.setChromiumOpenGlRenderer(gl);
 Config.setHardwareAcceleration(hardwareAcceleration);
 Config.setVideoImageFormat("jpeg");
 Config.setVideoBitrate(videoBitrate);

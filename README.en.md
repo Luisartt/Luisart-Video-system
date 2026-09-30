@@ -11,7 +11,8 @@ packaged so anyone can use it: Whisper transcription, cuts, [Remotion](https://w
 animations that follow *your* design system, sound effects, face-aware captions, vertical and horizontal
 versions, and independent review with Codex.
 
-## Start (3 steps)
+## Start (3 steps) — Windows and Mac
+> Works on **Windows and macOS**. Step-by-step instructions for both: [`docs/INSTALACION.md`](docs/INSTALACION.md).
 1. **Clone** and open the folder with [Claude Code](https://claude.com/claude-code):
    ```bash
    git clone https://github.com/Luisartt/Luisart-Video-system.git
@@ -48,9 +49,10 @@ versions, and independent review with Codex.
 | `vault-template/` | skeleton of your wiki: manual `CLAUDE.md`, inboxes, page templates, Web Clipper |
 | `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md` | **videos with reference videos (Route A) or from your design system alone (Route B)** |
 | `channels/_template/social/` | carousel and story renderer (`render_social.cjs`) + examples |
+| `docs/INSTALACION.md` | **step-by-step installation for Windows and Mac** |
 | `docs/BUFFER.md`, `tools/buffer/` | Buffer recommendation and setup + scripts to schedule posts |
 | `docs/MODELOS-Y-CLIS.md` | which models and CLIs to use (images, video, voice, review), with options |
-| `scripts/` | installers (Windows), design tools (contrast, token import, robots.txt check) |
+| `scripts/` | installers (`.ps1` Windows · `.sh` Mac/Linux), design tools (contrast, token import, robots.txt check) |
 | `core/` | Remotion root, locked renders, QA, matting and face tracking |
 | `TOOLS.md` | every tool with versions and sources |
 

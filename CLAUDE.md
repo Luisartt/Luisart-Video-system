@@ -42,6 +42,12 @@ The user can edit `paths.json` or any `SKILL.md` to fit their setup; `--check` v
 - Anything in the example docs specific to its creator (music picks, his face/voice, paid programs, names) does
   **not** apply to the user.
 
+## Windows and macOS
+The system runs on both. **Detect the OS first** and use the right commands: Windows → `.ps1` scripts and PowerShell; macOS/Linux →
+`.sh` scripts and Terminal (`bash`). Step-by-step instructions for both: `docs/INSTALACION.md`. Never hard-code the venv Python: use
+`{PYTHON}` (from `brand/paths.json`). Local AI acceleration: NVIDIA CUDA on Windows, Apple Metal on a Mac with Apple Silicon (an Intel
+Mac cannot run the local AI parts; graphics, carousels, stories, Buffer and wiki still work).
+
 ## Hard rules (public repository)
 - Never commit keys (`.env` is ignored), passwords, recordings, licensed audio, other people's images or
   frames, or a vault. Ask before any push; never force-push.

@@ -8,7 +8,7 @@ description: Process material Luisart clips with Obsidian Web Clipper into "{KNO
 > `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
 > `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
 > `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
-> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> folder · `{PYTHON}` the project's Python (venv: `.venv/Scripts/python.exe` on Windows, `.venv/bin/python` on macOS/Linux). Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
 > prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
 > copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
 
@@ -37,14 +37,14 @@ Work folder (heavy files never enter the vault): `archive/{CHANNEL}/clips/<slug>
    - Local file (dropped in the inbox): use it as is (ffmpeg reads the audio of any video); don't move or edit the original.
 2. **Transcribe** (GPU, one heavy job at a time, under the render lock):
    ```
-   npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py archive/{CHANNEL}/clips/<slug>/audio.wav archive/{CHANNEL}/clips/<slug>/transcript.json --lang <spanish|english|auto>
+   npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- {PYTHON} -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py archive/{CHANNEL}/clips/<slug>/audio.wav archive/{CHANNEL}/clips/<slug>/transcript.json --lang <spanish|english|auto>
    ```
    - Model: whisper-large-v3-turbo. The script splits the audio in pauses into parts ≤ 28 s (Whisper hallucinates "Gracias…" and repeated lines at its 30 s boundary), so hours-long audio is fine; run it in the background and don't start another GPU job meanwhile.
    - `--lang`: `spanish` (default), `english`, any Whisper language name, or `auto` when the language is unknown.
    - Output `transcript.json` = `{text, words: [{text,start,end}], splits}` with word times.
 3. **Readable transcript.**
    ```
-   .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/whisper_to_md.py archive/{CHANNEL}/clips/<slug>/transcript.json "<vault>/{KNOWLEDGE_INBOX}/_Transcripts/<clip name>.md"
+   {PYTHON} -W ignore .claude/skills/luisart-editar-short/scripts/whisper_to_md.py archive/{CHANNEL}/clips/<slug>/transcript.json "<vault>/{KNOWLEDGE_INBOX}/_Transcripts/<clip name>.md"
    ```
    Gives paragraphs with `**[mm:ss]**` stamps. Add frontmatter (`type: transcript`, `source: <url or file>`, `language`, `model: whisper-large-v3-turbo`, `generated: <date>`) and never edit the text afterwards; fix suspicious words only in the notes, marked `(sic)` or "garbled in the transcript". Check names of people, companies and tickers against what the page itself says.
 4. Go to step 4 (analysis) with the transcript.

@@ -1,7 +1,7 @@
 """Face box per frame for a talking-head video, for face-aware caption placement.
 
 Usage (from the project root, holding the render lock — it uses the GPU):
-  .venv/Scripts/python.exe core/scripts/py/face_track.py <video> <out.json> [--scale 0.5]
+  python core/scripts/py/face_track.py <video> <out.json> [--scale 0.5]
 
 Detector: MTCNN from facenet-pytorch (weights ship inside the package, no download), on the GPU
 when available. The largest face per frame is kept; boxes are then filled across missed frames
