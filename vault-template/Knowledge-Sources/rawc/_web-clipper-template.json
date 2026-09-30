@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Knowledge clip",
+  "behavior": "create",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} {{title|safe_name}}",
+  "path": "Knowledge-Sources/rawc",
+  "properties": [
+    { "name": "title", "value": "{{title}}", "type": "text" },
+    { "name": "url", "value": "{{url}}", "type": "text" },
+    { "name": "author", "value": "{{author}}", "type": "text" },
+    { "name": "platform", "value": "{{domain}}", "type": "text" },
+    { "name": "published", "value": "{{published}}", "type": "date" },
+    { "name": "saved", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date" },
+    { "name": "kind", "value": "", "type": "text" },
+    { "name": "status", "value": "pending", "type": "text" },
+    { "name": "tags", "value": "clip", "type": "multitext" }
+  ],
+  "triggers": [],
+  "noteContentFormat": "## What matters to me\n\n\n## Notes\n\n\n## Clipped content\n{{content}}\n"
+}

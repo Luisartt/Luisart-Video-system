@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "0.1.0",
+  "name": "Video reference",
+  "behavior": "create",
+  "noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}} {{title|safe_name}}",
+  "path": "Content/rawcc",
+  "properties": [
+    { "name": "title", "value": "{{title}}", "type": "text" },
+    { "name": "url", "value": "{{url}}", "type": "text" },
+    { "name": "author", "value": "{{author}}", "type": "text" },
+    { "name": "platform", "value": "{{domain}}", "type": "text" },
+    { "name": "published", "value": "{{published}}", "type": "date" },
+    { "name": "saved", "value": "{{date|date:\"YYYY-MM-DD\"}}", "type": "date" },
+    { "name": "kind", "value": "", "type": "text" },
+    { "name": "status", "value": "pending", "type": "text" },
+    { "name": "focus", "value": "editing + script", "type": "text" },
+    { "name": "tags", "value": "reference", "type": "multitext" }
+  ],
+  "triggers": [],
+  "noteContentFormat": "## What I liked\n\n\n## What I want to copy\n\n\n## Original description\n{{description}}\n"
+}

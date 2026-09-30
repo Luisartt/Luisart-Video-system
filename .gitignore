@@ -14,3 +14,7 @@ media/*/user-provided/
 media/soyluisart/audio/efectos/
 media/soyluisart/audio/fondos*/
 fal-spend.csv
+brand/references/_local/
+# your own vault lives in its own PRIVATE repository, never here
+vault/
+MyVault/

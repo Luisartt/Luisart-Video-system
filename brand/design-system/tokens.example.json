@@ -1,0 +1,69 @@
+{
+  "name": "Example Brand (replace me)",
+  "version": 1,
+  "color": {
+    "background": "#FFFFFF",
+    "surface": "#F4F4F6",
+    "ink": "#111111",
+    "muted": "#6B7280",
+    "accent": "#2F6BFF",
+    "accent2": "#B07800",
+    "positive": "#1E8A53",
+    "negative": "#E5484D",
+    "line": "#111111"
+  },
+  "font": {
+    "heading": {
+      "family": "Inter Tight",
+      "weight": 700
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 500
+    },
+    "accent": {
+      "family": "Shadows Into Light Two",
+      "weight": 400
+    },
+    "mono": {
+      "family": "Space Mono",
+      "weight": 700
+    }
+  },
+  "type": {
+    "title": 96,
+    "label": 48,
+    "caption": 54,
+    "number": 160
+  },
+  "radius": {
+    "card": 0,
+    "pill": 999
+  },
+  "border": 4,
+  "shadow": {
+    "x": 9,
+    "y": 9,
+    "color": "#D6D6D6"
+  },
+  "motion": {
+    "enterFrames": 8,
+    "stagger": 10,
+    "overshoot": false
+  },
+  "safe": {
+    "vertical": {
+      "top": 250,
+      "bottom": 970
+    },
+    "horizontal": {
+      "top": 120,
+      "bottom": 960
+    }
+  },
+  "sound": {
+    "loudnessLUFS": -14,
+    "truePeakDb": -1
+  },
+  "logo": null
+}

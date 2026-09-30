@@ -1,0 +1,12 @@
+.obsidian/workspace*.json
+.smart-env/
+desktop.ini
+.DS_Store
+# heavy media never goes to git: keep it in cloud storage with the same relative path
+*.mp4
+*.mov
+*.wav
+*.mp3
+*.webm
+# uncomment if your personal notes must not sync:
+# Personal notes/
