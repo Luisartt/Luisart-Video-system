@@ -1,4 +1,4 @@
-"""Track the guided run (skill lizard-init-skills). State lives in brand/progress.json and brand/PROGRESS.md.
+"""Track the guided run (skill luisart-init-skills). State lives in brand/progress.json and brand/PROGRESS.md.
 
 Usage
   python scripts/progreso.py --init                 create the files with every step pending
@@ -8,7 +8,7 @@ Usage
   python scripts/progreso.py --done S04 [--note "create path, tokens v1"]
   python scripts/progreso.py --skip S12 [--note "later"]
   python scripts/progreso.py --reset S05
-Statuses: pending, done, skipped. The order comes from .claude/skills/lizard-init-skills/steps.json.
+Statuses: pending, done, skipped. The order comes from .claude/skills/luisart-init-skills/steps.json.
 """
 import argparse
 import datetime
@@ -18,7 +18,7 @@ import os
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STEPS = os.path.join(ROOT, ".claude", "skills", "lizard-init-skills", "steps.json")
+STEPS = os.path.join(ROOT, ".claude", "skills", "luisart-init-skills", "steps.json")
 STATE = os.path.join(ROOT, "brand", "progress.json")
 MD = os.path.join(ROOT, "brand", "PROGRESS.md")
 
@@ -36,7 +36,7 @@ def load():
 def save(st):
     os.makedirs(os.path.dirname(STATE), exist_ok=True)
     json.dump(st, open(STATE, "w", encoding="utf-8"), indent=2, ensure_ascii=False)
-    lines = ["# Progress", "", "Kept by `scripts/progreso.py` (skill `lizard-init-skills`). `[x]` done · `[~]` skipped · `[ ]` pending.", ""]
+    lines = ["# Progress", "", "Kept by `scripts/progreso.py` (skill `luisart-init-skills`). `[x]` done · `[~]` skipped · `[ ]` pending.", ""]
     phase = None
     for s in steps():
         if s["phase"] != phase:

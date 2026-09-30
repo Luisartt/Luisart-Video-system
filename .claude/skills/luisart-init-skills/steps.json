@@ -1,5 +1,5 @@
 {
-  "_comment": "Single source of truth for the order of the guided run. Read by scripts/progreso.py and by the skill lizard-init-skills. 'done_when' = files that prove the step is done (globs relative to the repo; {channel} comes from brand/paths.json); empty = marked by hand.",
+  "_comment": "Single source of truth for the order of the guided run. Read by scripts/progreso.py and by the skill luisart-init-skills. 'done_when' = files that prove the step is done (globs relative to the repo; {channel} comes from brand/paths.json); empty = marked by hand.",
   "steps": [
     {"id": "S01", "phase": "A. Foundation", "skills": ["video-system-start"], "title": "About you: language, level, brand, topic, platforms", "mode": "required", "done_when": ["brand/brand.json"]},
     {"id": "S02", "phase": "A. Foundation", "skills": ["luisart-montar-sistema"], "title": "Set up this computer and create your paths", "mode": "required", "done_when": ["brand/paths.json"]},

@@ -3,7 +3,7 @@ name: video-system-start
 description: The guided onboarding for anyone who clones this repository to build THEIR OWN AI video-editing system and brand. Interviews the user one question at a time, then walks them step by step — language and level, machine setup, choose "create a design system" or "import a design system", gather references from many websites, build the style, make the first graphics, write their channel rules, and produce a first video from a script and a recording. Runs automatically at the start of a session when brand/brand.json does not exist yet (see CLAUDE.md), and whenever the user says "start", "empezar", "set up my brand", "guide me", "quiero mi propio sistema", "continue the setup" or "where was I".
 ---
 
-> **Order of the full run:** the master skill `lizard-init-skills` runs every skill in order (`steps.json`) and
+> **Order of the full run:** the master skill `luisart-init-skills` runs every skill in order (`steps.json`) and
 > calls this one as step S01 for **Stages 0–1 only** (intake). Used on its own (for example "where was I?"), it follows
 > the stage list below, which uses the same order.
 

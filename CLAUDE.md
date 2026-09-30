@@ -8,7 +8,7 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
 ## First thing in every session
 
 1. Read `brand/brand.json` and `brand/PROGRESS.md` if they exist.
-2. **If the guided run has not started (no `brand/brand.json`), run the skill `lizard-init-skills` now**, before
+2. **If the guided run has not started (no `brand/brand.json`), run the skill `luisart-init-skills` now**, before
    doing anything else, and greet the user in their language (ask it first). Do not wait for them to ask.
    It runs every other skill in a fixed order and tracks progress; if it is in progress, greet the user by what they
    already decided and offer to continue from the next step (`python scripts/progreso.py --next`).
@@ -16,7 +16,7 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
    session start; it only reads `brand/` and prints text.
 
 ## The guided path (skills)
-`lizard-init-skills` (the conductor: runs all of these in order, `steps.json`) → `video-system-start` (intake) →
+`luisart-init-skills` (the conductor: runs all of these in order, `steps.json`) → `video-system-start` (intake) →
 `luisart-montar-sistema` (computer setup) → `design-system-create` **or**
 `design-system-import` → `design-references-research` (sites; guide in
 `.claude/skills/design-references-research/references/sites.md`) → `graphics-from-design-system` →

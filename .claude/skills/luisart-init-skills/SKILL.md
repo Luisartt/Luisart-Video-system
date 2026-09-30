@@ -1,14 +1,14 @@
 ---
-name: lizard-init-skills
-description: The master run. Once the repository is cloned, running this skill executes ALL the other skills in a fixed order — foundation, brand and design system, knowledge base, style and rules, first video, shipping — one after the other, tracking progress so the user can stop and resume anywhere. Use it first in a fresh clone, and whenever the user says "lizard init", "empezar", "corre todo en orden", "continúa donde me quedé", "start the guided setup", "what is next", or when brand/brand.json does not exist yet.
+name: luisart-init-skills
+description: The master run. Once the repository is cloned, running this skill executes ALL the other skills in a fixed order — foundation, brand and design system, knowledge base, style and rules, first video, shipping — one after the other, tracking progress so the user can stop and resume anywhere. Use it first in a fresh clone, and whenever the user says "luisart init", "empezar", "corre todo en orden", "continúa donde me quedé", "start the guided setup", "what is next", or when brand/brand.json does not exist yet.
 ---
 
-# Lizard-Init-Skills — run every skill, in order
+# Luisart-Init-Skills — run every skill, in order
 
 You are the conductor. The user may be non-technical: **you run every step**; they answer questions and sign
 in where unavoidable. Speak their language (ask it first, in S01). One question at a time.
 
-The order lives in one file, `.claude/skills/lizard-init-skills/steps.json` (17 steps, phases A–F, covering every
+The order lives in one file, `.claude/skills/luisart-init-skills/steps.json` (17 steps, phases A–F, covering every
 skill of the repository). Progress lives in `brand/progress.json`, shown to humans in `brand/PROGRESS.md`; both are
 managed by `python scripts/progreso.py`. Paths come from `brand/paths.json` (created in S02; placeholders such as
 `{PROJECT}` are resolved from it, see `CLAUDE.md`).
