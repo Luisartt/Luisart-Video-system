@@ -1,11 +1,12 @@
 """Repertorio por categorías de contenido: 20 figuras (x3 paletas) + 10 Bit temáticos (x2 paletas).
 python sprites2.py [categoria...]  -> categorias/<cat>/png/<fig>-<pal>/<n>-<expr>.png + raw/<fig>-<pal>.png + contacto.png"""
 import os, sys, colorsys
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..", "..")).replace("\\", "/")
 from PIL import Image
 sys.path.insert(0, os.path.dirname(__file__))
 from sprites import G, cara, simbolo, EXPR, INK, hexrgb, mix, lighter, darker, feet, hoja
 
-OUT = "C:/Users/LART/Documents/Proyectos/tubeai-video/media/soyluisart/brand/mascots/categorias"
+OUT = REPO + "/media/soyluisart/brand/mascots/categorias"
 
 def poly(g, pts, c):
     n = len(pts)

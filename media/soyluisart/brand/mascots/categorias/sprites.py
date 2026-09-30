@@ -1,9 +1,10 @@
 """Figuras de finanzas de Bit dibujadas en píxeles (32x32) con primitivas + contorno automático.
 Uso: python sprites.py  -> escribe png/<clave>/<n>-<expresion>.png (256 px) y hojas por personaje."""
 import os, math, copy
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..", "..")).replace("\\", "/")
 from PIL import Image
 
-OUT = "C:/Users/LART/Documents/Proyectos/tubeai-video/media/soyluisart/brand/mascots/figuras"
+OUT = REPO + "/media/soyluisart/brand/mascots/figuras"
 N = 32
 INK = "#111111"
 EXPR = ["feliz", "sorpresa", "pensando", "enojado", "guino", "sueno"]

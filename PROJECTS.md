@@ -8,10 +8,10 @@ added, a video's status or next step changes, or a video ships.
 Channel work: **Luisart is the standard** — the channel's main style and edit system
 (CHANNEL.md ★, library `styles/pizarra/`, full-board and split layouts); **Kallaway approved as a
 style option (2026-09-28)** — pack `styles/kallaway/` (8 elements, 38 clips in
-`out/soyluisart/kallaway/`), its exceptions in CHANNEL.md ★ (continuous seam captions, one giant
+`out/{CHANNEL}/kallaway/`), its exceptions in CHANNEL.md ★ (continuous seam captions, one giant
 word on face shots, only a slow push on images, section clicks, zero whooshes); the editing skill
 now asks the style first (Luisart full board · Luisart split · Kallaway). Terminal and Documental are
-secondary. **No music** unless the user supplies a file (`media/soyluisart/user-provided/musica/`).
+secondary. **No music** unless the user supplies a file (`media/{CHANNEL}/user-provided/musica/`).
 Rules (Luisart; the Kallaway exceptions are in CHANNEL.md ★): vertical + horizontal deliverables, no plates behind text, key face shots get a big word / plain face shots get captions (never during graphics, never over the face), graphics
 in y 250–970, constant motion + marker arrows, whooshes only at the start and on real transitions
 · next: user review of pizarra-v7 / split-v5 / pizarra-v7-horizontal and of the Kallaway draft, then the next video.

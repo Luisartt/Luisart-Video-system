@@ -3,6 +3,15 @@ name: luisart-revision-codex
 description: Runs an independent OpenAI Codex review of a @soyluisart deliverable (a rendered short/video, a Luisart library batch, or the rule documents) against the channel rules — contact sheets every 0.5 s plus caption-change frames, code and rules pasted with line numbers, codex exec in read-only mode, then Claude verifies every finding, discards false positives, writes CODEX-REVIEW.md, fixes, re-renders and re-reviews until clean. Use it before delivering ANY @soyluisart video or animation batch (every deliverable must pass it), whenever the user asks for a "revisión", "que Codex lo revise", "segunda opinión", "revisa que cumpla las reglas", or after fixing review findings to confirm they are resolved.
 ---
 
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
+
 # Codex review of a @soyluisart deliverable
 
 Every deliverable is reviewed by Codex against the channel rules and fixed before Luis sees it.
@@ -10,19 +19,19 @@ Codex is a second pair of eyes, not the judge: Claude verifies every finding aga
 and the code, keeps the real ones, discards false positives, fixes, and re-reviews until clean.
 The model to copy is `channels/soyluisart/videos/2026-09-27-per-barato/CODEX-REVIEW.md`.
 
-Rules: skill `luisart-reglas` (checklist (a)–(p)) and `channels/soyluisart/CHANNEL.md` ★ — re-read
+Rules: skill `luisart-reglas` (checklist (a)–(p)) and `{CHANNEL_DIR}/CHANNEL.md` ★ — re-read
 CHANNEL.md before each review; it changes.
 
 Vault (read-routing): for context, read ONLY
-`C:\Users\LART\Documents\Lartyk\wiki\Content Creation\` —
+`{VAULT}\wiki\Content Creation\` —
 `Editing System\`, the reviewed style's folder under `Styles\` and its `Designs\<style>\`, that
 style's creators in `References\Creators\`, and `Videos\<YYYY-MM-DD slug>\` for the video.
-**Never read `wiki\Knowledge\` or `Finanzas\`**, and never paste them into a Codex prompt.
+**Never read `wiki\Knowledge\` or `{KNOWLEDGE_DIR}\`**, and never paste them into a Codex prompt.
 The rules pasted into prompts come from CHANNEL.md ★ and `luisart-reglas`, not from vault copies.
 
 ## Codex on this machine
 
-- CLI: `codex` (0.157, `C:\Users\LART\AppData\Local\Programs\OpenAI\Codex\bin\codex`), signed in.
+- CLI: `codex` (signed in with `codex login`).
 - **Always pass `-s read-only`.** The user's `~/.codex/config.toml` defaults to
   `sandbox_mode = "danger-full-access"`; a review must never be able to write.
 - On Windows the read-only sandbox **cannot start processes** (`CreateProcessAsUserW` access
@@ -42,7 +51,7 @@ codex exec -s read-only --skip-git-repo-check --ephemeral -C "$PWD" \
 
 ## Steps
 
-`<V>` = `channels/soyluisart/videos/<v>`, `<O>` = `out/soyluisart/videos/<v>`. Working files go in
+`<V>` = `channels/soyluisart/videos/<v>`, `<O>` = `out/{CHANNEL}/videos/<v>`. Working files go in
 `<V>/review/` (prompts, raw Codex answers); frames in `<O>/review/<target>/`.
 
 1. **Caption-change frames** for each edit (the gate exported by the composition file):
@@ -73,7 +82,7 @@ npx tsx .claude/skills/luisart-revision-codex/scripts/caption_changes.ts <V>/sce
 ```bash
 .venv/Scripts/python.exe .claude/skills/luisart-revision-codex/scripts/make_prompt.py <V>/review/prompt-pizarra.txt \
   --head <V>/review/head-pizarra.md --frames <O>/review/pizarra/frames.json -- \
-  .claude/skills/luisart-reglas/SKILL.md channels/soyluisart/CHANNEL.md:<★ section lines> \
+  .claude/skills/luisart-reglas/SKILL.md {CHANNEL_DIR}/CHANNEL.md:<★ section lines> \
   <V>/scenes/pizarra/PizShort.tsx <V>/scenes/pizarra/layout.ts <V>/scenes/pizarra/groups.ts \
   <V>/scenes/pizarra/Boards.tsx <V>/scenes/pizarra/pizCues.ts <V>/scenes/pizarra/captionRule.ts \
   <V>/scenes/pizarra/captionPlace.ts <V>/scenes/figures.ts <V>/scenes/music.ts <V>/BRIEF.md

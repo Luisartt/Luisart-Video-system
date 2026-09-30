@@ -28,18 +28,15 @@ the second one is the manual the AI will follow forever.
    (default = the user's), their 8–15 **knowledge categories** (propose some from `brand.json → topic`
    and let them edit), whether they want Personal notes, whether to sync with GitHub (private repo) and
    back up to cloud storage.
-3. **Create it:** copy `vault-template/` to the chosen path (`robocopy`/`cp -r`, then remove nothing).
-   Fill: `CLAUDE.md` (`<Creator>`, `<channel>`, folder names if renamed), `wiki/Home.md`, `Channel Home.md`,
-   `Knowledge Index.md` (their categories → create `wiki/Knowledge/Concepts/<category>/` folders),
-   today's date in `updated`. Record in `brand/brand.json`:
-   ```json
-   "vault": {"path": "...", "content_dir": "Content", "knowledge_dir": "Knowledge-Sources", "wiki_dir": "wiki"}
-   ```
-   **Path mapping:** the skills `luisart-procesar-material`, `luisart-procesar-referencias`, `luisart-guion`
-   and `luisart-editar-short` were written for the original vault, where the inboxes were
-   `Finanzas/rawc/` and `Creacion de Contenido/rawcc/` and the vault sat at `Documents\Lartyk`. When you
-   follow them, read `brand.json → vault` and substitute: `Finanzas/` → `knowledge_dir`,
-   `Creacion de Contenido/` → `content_dir`, the vault root → `vault.path`.
+3. **Create it:** `python scripts/configurar_rutas.py --create --vault "<chosen path>"` copies `vault-template/` to the
+   vault (it never overwrites) and writes the paths to `brand/paths.json`. Then fill: the vault's `CLAUDE.md`
+   (`<Creator>`, `<channel>`, folder names if renamed), `wiki/Home.md`, `Channel Home.md`, `Knowledge Index.md`
+   (their categories → create `wiki/Knowledge/Concepts/<category>/` folders), today's date in `updated`.
+   **Paths are configurable:** the processing skills (`luisart-procesar-material`, `luisart-procesar-referencias`,
+   `luisart-guion`, `luisart-editar-short`) use placeholders (`{VAULT}`, `{CONTENT_INBOX}`, `{KNOWLEDGE_INBOX}` …)
+   that come from `brand/paths.json`. If the user renames a folder or moves the vault, they (or you) edit that file
+   and run `python scripts/configurar_rutas.py --check`. To customise a skill itself, edit its `SKILL.md`: the
+   placeholders keep working.
 4. **Connect the tools** (do it for them): install Obsidian (`winget install Obsidian.Obsidian` on Windows),
    open the folder as a vault; plugins to enable: Web Clipper (browser extension), Obsidian Git (optional),
    Dataview (optional). **Import both Web Clipper templates**

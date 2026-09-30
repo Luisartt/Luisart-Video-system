@@ -1,86 +1,62 @@
 ---
 name: luisart-montar-sistema
-description: Set up (or move) the whole @soyluisart video-editing system on a computer — the vault, the tubeai-video project (Remotion, FFmpeg, yt-dlp, Whisper, matte, face track, Codex CLI, GPU), the Google Drive media, the render settings for that machine — and verify it works with a real test render. Use when Luisart says "monta el sistema en la otra computadora", "configura esta compu para editar", "pasa el proyecto a otra máquina", "instala todo", "verifica que el equipo sirva para editar", or when a tool of the pipeline is missing or broken on a new machine. Not for editing a video (that is luisart-editar-short).
+description: Set up (or move) the whole video-editing system on a computer — tools, Remotion, the Python environment with Whisper, paths, optional vault and cloud folder — and verify it with a real test render. Use when the user says "monta el sistema en esta computadora", "configura esta compu para editar", "instala todo", "set up the video system on my other computer", "verifica que el equipo sirva para editar", or when a tool of the pipeline is missing or broken. Not for editing a video (that is luisart-editar-short).
 ---
 
-# Mount the editing system on a computer
+# Set up the editing system on a computer
 
-Luisart is not technical and writes Spanish. The AI does every step, asks him only to sign in
-where a login is unavoidable (GitHub, Google Drive, OpenAI/Codex), and reports outcomes in
-Spanish without internals. Never ask him to run a command or edit a file.
+The user may not be technical. **You do every step**; they only sign in where a login is unavoidable
+(GitHub, cloud storage, Codex, Claude). Report outcomes in their language, without internals.
 
-The system has three layers. Each one travels differently:
+The repository itself is the project: **a new computer needs `git clone` + this skill**, nothing else to
+copy. Heavy or rebuildable things (`node_modules`, `.venv`, model weights, `out/`, `archive/`,
+`recordings/`) are never in git; they are rebuilt locally. The user's brand (`brand/`) and their
+channel folder live in their own fork; their vault lives in its own private repository.
 
-| Layer | What | How it gets to the new computer |
-|---|---|---|
-| Knowledge and rules | the vault `C:\Users\LART\Documents\Lartyk\` (wiki, `CLAUDE.md`, styles pages) | private GitHub repo `Luisartt/lartyk` (vault `CLAUDE.md` → "Set up a new computer") |
-| Code and skills | the project `tubeai-video` (`channels/`, `core/`, `.claude/skills/`, `.claude/agents/`, `AGENTS.md`, `package.json`, `media/` brand and SFX). **It is not a git repo.** | `scripts/exportar_proyecto.ps1` copies it to Google Drive `My Drive/lartyk/proyecto-tubeai-video/` (no heavy folders); `robocopy`/copy on the new machine |
-| Heavy or rebuildable | `node_modules`, `.venv`, Whisper and other model weights, `out/`, `archive/`, `recordings/` | rebuilt on the new machine (below); never copied |
+## Steps (in order; check each; one heavy job at a time)
 
-Precedence of rules stays: `channels/soyluisart/CHANNEL.md` ★ > `luisart-reglas` > other skills >
-`GUIDELINES.md` > `AGENTS.md`.
+1. **Check the machine** (read-only): `powershell -File .claude\skills\luisart-montar-sistema\scripts\verificar_equipo.ps1`.
+   Requirements: Windows 10/11 (macOS/Linux: translate the tools to brew/apt and say so), ≥ 16 GB RAM,
+   ≥ 60 GB free disk, NVIDIA GPU with driver ≥ 551.76 for hardware video encoding (without a GPU everything
+   works but renders and Whisper are much slower; set `hardwareAcceleration` in `core/lib/render-settings.ts`).
+2. **Tools:** `powershell -ExecutionPolicy Bypass -File scripts\instalar-herramientas.ps1` (Git, Git LFS,
+   GitHub CLI, Node 24, FFmpeg, yt-dlp, Python 3.12, SoX, Deno). Reopen the terminal so PATH refreshes. The AI
+   CLIs (Claude Code, Codex) are covered in `docs/MODELOS-Y-CLIS.md`.
+3. **Project dependencies:** `powershell -ExecutionPolicy Bypass -File scripts\instalar-proyecto.ps1`
+   (`npm ci` → Remotion and all `@remotion/*` at 4.0.529; Python 3.12 venv; CUDA torch first, then
+   `requirements-venv.txt`; `facenet-pytorch` with `--no-deps` so it does not replace torch). Check
+   `.venv\Scripts\python.exe -c "import torch;print(torch.cuda.is_available())"` → `True`.
+4. **Paths:** `python scripts/configurar_rutas.py --create --channel <slug> [--vault <folder>] [--cloud <folder>]`
+   writes `brand/paths.json`, creates `channels/<slug>/` (from `channels/_template`), `out|media|archive|recordings/<slug>/`
+   and the vault from `vault-template/`. The skills use placeholders (`{PROJECT}`, `{VAULT}`, …) that come from
+   that file; the user can edit it any time and run `python scripts/configurar_rutas.py --check`.
+5. **Model weights** download on first use into `%USERPROFILE%\.cache\huggingface` (Whisper large-v3-turbo
+   ≈ 1.6 GB). Warm it with a 5-second clip through `transcribe_parts.py` so the first real job does not stall.
+   Chrome for Testing downloads on the first `npm run gpu`.
+6. **Render settings for this machine:** `core/lib/render-settings.ts` holds concurrency, timeout and hardware
+   flags measured on the author's laptop (i7-13620H, RTX 4050 6 GB, 15.7 GB RAM: concurrency 3, timeout
+   120 s, NVENC required). Run `npm run gpu`; if this machine differs, run `npx remotion benchmark` on one short
+   composition and update that file (more RAM → higher concurrency; no NVENC → `hardwareAcceleration = "if-possible"`).
+7. **Media:** audio is not in the repo (licences). The user brings their own music/SFX or downloads
+   licence-clean ones; `media/soyluisart/audio/LICENCIAS.md` shows how the example library was sourced. The AI never
+   picks the user's music.
+8. **Prove it works (mandatory):** (a) `npm run gpu` all "Hardware accelerated"; (b) `npx tsc --noEmit`;
+   (c) `npx remotion still core/index.ts TPL-title-card out/_setup-test.png --frame=60`; (d) `transcribe_parts.py`
+   on a 5 s clip; (e) `codex --version`, `claude --version`, `yt-dlp --version`; (f) `verificar_equipo.ps1` again →
+   every line OK. Delete the test outputs afterwards.
+9. **Record it:** note the machine (name, date, what passed) in `brand/PROGRESS.md`.
 
-## Steps
-
-Run them in order; after each, check it (table at the end). One heavy job at a time.
-
-1. **Check the machine first** with `scripts/verificar_equipo.ps1` (read-only). It lists what is
-   present, what is missing, the GPU, free RAM and disk. Tell Luisart the result in plain words.
-   Requirements: Windows 10/11, ≥ 16 GB RAM, ≥ 60 GB free disk, NVIDIA GPU with driver ≥ 551.76 for
-   hardware video encoding (without a GPU everything still works but renders and Whisper are much
-   slower; say so and set `hardwareAcceleration` accordingly, step 7).
-2. **Tools** (winget, one at a time): `Git.Git`, `Git.GitLFS`, `GitHub.cli`, `OpenJS.NodeJS`
-   (24.x), `Gyan.FFmpeg`, `yt-dlp.yt-dlp`, `Python.Python.3.12` (3.12 exactly: the torch build
-   below has no wheels for newer), `ChrisBagwell.SoX`, `DenoLand.Deno`. Then the AI CLIs: Claude
-   Code, and Codex CLI (`npm i -g @openai/codex`), which Luisart signs in to once.
-   Reopen the terminal so PATH refreshes.
-3. **Vault:** follow the vault `CLAUDE.md` → "Set up a new computer" (clone to
-   `C:\Users\<user>\Documents\Lartyk`, `git lfs pull`, git config). If the Windows user name is not
-   `LART`, tell Luisart and replace the paths in the `luisart-*` skills before processing anything.
-4. **Project:** copy `My Drive/lartyk/proyecto-tubeai-video/` (made on the main computer with
-   `scripts/exportar_proyecto.ps1`) to `C:\Users\<user>\Documents\Proyectos\tubeai-video\`.
-   Keep that path: the skills and the vault point to it. Then `npm ci` inside it.
-5. **Python environment:** `py -3.12 -m venv .venv`, then torch with CUDA first
-   (`.venv\Scripts\python.exe -m pip install torch==2.5.1 torchaudio==2.5.1 torchvision==0.20.1
-   --index-url https://download.pytorch.org/whl/cu121`), then
-   `pip install -r .claude/skills/luisart-montar-sistema/references/requirements-venv.txt
-   --extra-index-url https://download.pytorch.org/whl/cu121`. `facenet-pytorch` must be installed
-   `--no-deps` (it would otherwise replace torch). Check: `.venv\Scripts\python.exe -c "import torch;print(torch.cuda.is_available())"` → `True`.
-6. **Model weights** download on first use into `%USERPROFILE%\.cache\huggingface` (Whisper
-   large-v3-turbo ≈ 1.6 GB, Qwen3-TTS). Warm the Whisper one with a 5-second test clip through
-   `transcribe_parts.py` so the first real job does not stall. Chrome for Testing downloads on the
-   first `npm run gpu`.
-7. **Render settings for THIS machine:** `core/lib/render-settings.ts` holds concurrency,
-   timeout and hardware flags measured on the laptop (i7-13620H, RTX 4050 6 GB, 15.7 GB RAM:
-   concurrency 3, timeout 120 s, NVENC required). Run `npm run gpu`; if the new machine differs,
-   run `npx remotion benchmark` on one short composition and update that file (more RAM → higher
-   concurrency; no NVENC → `hardwareAcceleration = "if-possible"`). Write the new numbers in
-   `GUIDELINES.md` → "This machine" as a second entry with the date; do not overwrite the laptop's.
-8. **Media:** brand, mascots and sound effects are inside `media/` (copied in step 4). Videos
-   and audio of the vault come from Google Drive with `python _scripts\backup\restaurar_media.py`
-   then `--copiar` (vault `CLAUDE.md` → "Bringing videos and audio to a computer"). Music is
-   Luisart's choice: never copy or pick any on his behalf.
-9. **Prove it works (mandatory):** (a) `npm run gpu` all "Hardware accelerated"; (b) `npx tsc
-   --noEmit`; (c) a 3-second still and a 3-second render of the reference edit
-   `videos/2026-09-27-per-barato/` (if its media is missing, use the smallest pizarra element:
-   `npx remotion render core/index.ts <id> out/_setup-test.mp4 --frames=0-89` through
-   `core/scripts/render-locked.ts`); (d) `transcribe_parts.py` on a 5 s clip; (e) `codex --version`
-   and `yt-dlp --version`; (f) `scripts/verificar_equipo.ps1` again → every line OK. Delete the
-   test outputs afterwards.
-10. **Record it:** add the machine to `PROJECTS.md` (name, date, what was verified) and one
-    `[content]` line to the vault `wiki/Log.md`. Commit and push the vault (never the project's
-    heavy folders).
+## Moving to another computer
+`git clone` your fork → steps 1–9 again (steps 2–3 are the same, step 4 uses that machine's folders) → bring
+the vault with `git clone <your private vault repo> <vault folder>` (+ `git lfs pull`) and update `brand/paths.json`;
+heavy media comes from wherever you keep it (cloud folder, same relative path).
 
 ## What not to do
+- Never put `.venv`, `node_modules`, renders, model weights, keys or logins in git; never make the vault repo public.
+- Never enter passwords for the user; they sign in themselves.
+- Never pick their music, clone their voice, or publish anything.
+- Do not overwrite measured render numbers of another machine; add the new one beside them.
 
-- Never put `.venv`, `node_modules`, renders or model weights in git or in the vault.
-- Never make the vault repo public or add a second remote; never commit keys, tokens or logins.
-- Never enter passwords for Luisart: he signs in to GitHub, Drive and Codex himself.
-- Never pick his music, never clone his voice, never publish anything.
-- Do not edit the laptop's measured numbers; add the new machine beside them.
-
-## Report to Luisart (Spanish, plain)
-
-What machine it is, what was installed, what passed the test render (length and time it took),
-what still needs him (a login), and the one thing he should know (for example "esta compu no tiene
-tarjeta de video: los renders tardarán unas 5 veces más").
+## Report (in the user's language, plain)
+What machine it is, what was installed, what passed the test render, what still needs them (a login), and the one
+thing they should know (for example "this computer has no video card: renders will be about 5× slower").

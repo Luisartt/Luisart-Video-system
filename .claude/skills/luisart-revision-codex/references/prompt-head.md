@@ -33,7 +33,7 @@ pasted below. Where they differ, CHANNEL.md wins.
 2. Go through the code and check what frames can't show: (a) the caption gate receives EVERY
    graphic window; (e) the cue list — whoosh only on frame 0 and real transitions, every graphic
    event has its own specific SFX near its landing frame; (h) music only from
-   `media/soyluisart/user-provided/musica/` via `USER_MUSIC`; figures come from one `figures.ts`
+   `media/{CHANNEL}/user-provided/musica/` via `USER_MUSIC`; figures come from one `figures.ts`
    and results are computed; nothing hard-codes a time instead of a transcript word.
 3. Also flag: anything cropped or cut off, text too small to read on a phone, single-frame
    glitches, a caption that flashes for less than 12 frames, voice/screen mismatches (the screen

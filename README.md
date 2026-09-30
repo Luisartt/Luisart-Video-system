@@ -41,7 +41,7 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | `.claude/skills/` | todas las skills (guía, design system, referencias, gráficos, wiki, estilos, edición, revisión…) |
 | `channels/_template/` | kit inicial de gráficos **basado en tokens** (tu marca → `tokens.json` → tema → gráficos) |
 | `channels/soyluisart/` | ejemplo completo de un canal real: reglas, 4 estilos, biblioteca de animaciones |
-| `brand/` | **tu** marca: `brand.json`, `PROGRESS.md`, `design-system/tokens.json`, `references/` |
+| `brand/` | **tu** marca: `brand.json`, `PROGRESS.md`, `paths.json` (tus rutas, editable), `design-system/tokens.json`, `references/` |
 | `vault-template/` | esqueleto de tu wiki: manual `CLAUDE.md`, bandejas, plantillas, Web Clipper |
 | `docs/MODELOS-Y-CLIS.md` | qué modelos y CLIs usar (imágenes, video, voz, revisión) con opciones |
 | `scripts/` | instaladores (Windows), herramientas de diseño (contraste, importar tokens, revisar robots.txt) |
@@ -54,6 +54,7 @@ python scripts/design/importar_tokens.py --url https://tu-sitio.com   # importar
 python scripts/design/contraste.py brand/design-system/tokens.json     # ¿se lee bien en un teléfono?
 python scripts/design/generar_theme.py                                 # tokens → tema de Remotion
 python scripts/design/revisar_robots.py godly.design ...               # ¿este sitio deja leer a una IA?
+python scripts/configurar_rutas.py --create --channel mi-marca         # crea carpetas y brand/paths.json
 npm run studio                                                         # ver y probar los gráficos
 ```
 
@@ -64,7 +65,8 @@ npm run studio                                                         # ver y p
   consiguió la biblioteca de ejemplo con licencias limpias.
 - **Remotion:** gratis para individuos y equipos pequeños; empresas de más de 3 personas necesitan licencia
   (<https://www.remotion.pro/license>).
+- **Licencia:** [MIT](LICENSE). Úsalo, cámbialo y compártelo. Las skills de terceros que se instalan aparte tienen sus propias licencias (ver `TOOLS.md`).
 - **Hook de sesión:** `.claude/settings.json` ejecuta `scripts/hook-inicio.mjs`, que solo lee `brand/` e
   imprime un texto. Revísalo si quieres: son 25 líneas.
-- Las skills `luisart-*` y `AGENTS.md` describen el canal original; `CLAUDE.md` explica cómo se traducen a tu
-  marca. Sin licencia explícita: todos los derechos reservados hasta que el autor decida una.
+- Las skills `luisart-*` y `AGENTS.md` vienen del canal original; cada carpeta que mencionan es un marcador que
+  configuras en `brand/paths.json` (ver `CLAUDE.md`).

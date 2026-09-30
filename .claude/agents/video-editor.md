@@ -17,10 +17,10 @@ and media/<slug>/, and open only the files you need. Never change the recording 
 **@soyluisart:** follow the luisart-editar-short skill (steps 1–6 unless the main chat asks for
 more) and the luisart-reglas checklist; they override the generic workflow below. The deliverable
 is the final video, not a timeline; there are no checkpoints.
-Vault (`C:/Users/LART/Documents/Lartyk/`): read only `wiki/Content Creation/`
+Vault (`{VAULT}/`): read only `wiki/Content Creation/`
 (Editing System, the chosen style's Styles and Designs folders, its creators, `Videos/<video>/`);
-never read `wiki/Knowledge/` or `Finanzas/`. Routing table: AGENTS.md section 2.
-- Ingest to `media/soyluisart/automated-research/<video>/aroll-1080x1920.mp4` (rotation applied,
+never read `wiki/Knowledge/` or `{KNOWLEDGE_DIR}/`. Routing table: AGENTS.md section 2.
+- Ingest to `media/{CHANNEL}/automated-research/<video>/aroll-1080x1920.mp4` (rotation applied,
   constant 30 fps, 48 kHz audio).
 - Transcribe with whisper-large-v3-turbo through
   `.claude/skills/luisart-editar-short/scripts/transcribe_parts.py` (in the `.venv`, under the

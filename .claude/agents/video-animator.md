@@ -23,9 +23,9 @@ sound, luisart-diseno-sonoro. Deliverables are the finished videos (vertical ful
 split, horizontal 1920×1080, 30 fps). Renders only through the locked scripts
 (`npm run render:locked`, `core/scripts/*-locked.ts`), one at a time. Before delivery, every
 render goes through the luisart-revision-codex review loop (the main chat may run it).
-Vault (`C:/Users/LART/Documents/Lartyk/`): read only `wiki/Content Creation/`
+Vault (`{VAULT}/`): read only `wiki/Content Creation/`
 (Editing System, the chosen style's Styles and Designs folders, its creators, `Videos/<video>/`);
-never read `wiki/Knowledge/` or `Finanzas/`. Routing table: AGENTS.md section 2.
+never read `wiki/Knowledge/` or `{KNOWLEDGE_DIR}/`. Routing table: AGENTS.md section 2.
 
 In general, following GUIDELINES.md:
 - Reuse first, then derive, then create: use channel animations and core templates first,

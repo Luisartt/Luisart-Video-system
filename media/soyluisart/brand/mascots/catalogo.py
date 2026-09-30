@@ -1,14 +1,15 @@
 """Construye el catálogo de mascotas: .inicio/mascotas/catalogo.json (Inicio) y mascotIndex.ts (Remotion).
 Uso: python catalogo.py"""
 import os, sys, json, glob
+REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..")).replace("\\", "/")
 sys.path.insert(0, os.path.dirname(__file__))
 import sprites2 as S
-os.environ.setdefault("MASC_BASE", "C:/Users/LART/Documents/Proyectos/tubeai-video/media/soyluisart/brand/mascots/variantes")
+os.environ.setdefault("MASC_BASE", REPO + "/media/soyluisart/brand/mascots/variantes")
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 import mascotas_gen as GV
 
-M = "C:/Users/LART/Documents/Proyectos/tubeai-video/media/soyluisart/brand/mascots/"
-VAULT = "C:/Users/LART/Documents/Lartyk/.inicio/mascotas/"
+M = REPO + "/media/soyluisart/brand/mascots/"
+VAULT = os.environ.get("MASCOT_CATALOG_DIR", REPO + "/media/soyluisart/brand/mascots/_catalogo") + "/"
 EXPR = ["feliz", "sorpresa", "pensando", "enojado", "guino", "sueno"]
 FIG = {"f01-grafica":"Grafi","f02-billete":"Billetin","f03-moneda":"Monedin","f04-lingote":"Lingotin","f05-caja-fuerte":"Caja Fuerte","f06-portafolio":"Portafolio","f07-tarjeta":"Tarjetin","f08-toro":"Toro","f09-oso":"Oso","f10-edificio":"Torre","f11-bolsa":"Bolsita","f12-reloj-arena":"Tiempo","f13-candelabro":"Vela","f14-cartera":"Cartera","f15-bit-traje":"Bit Ejecutivo"}
 PAL = {"base": "", "oscuro": " (oscuro)", "alterno": " (alterno)"}
@@ -36,6 +37,7 @@ for cat in sorted(os.listdir(M + "categorias")):
         sets.append({"clave": d, "nombre": nombres[base] + PAL[pal], "archivos": archivos("categorias", cat, d)})
     grupos.append({"clave": cat, "nombre": nombre, "sets": sets})
 cat = {"version": 1, "expresiones": EXPR, "grupos": grupos}
+os.makedirs(VAULT, exist_ok=True)
 open(VAULT + "catalogo.json", "w", encoding="utf-8").write(json.dumps(cat, ensure_ascii=False, indent=1))
 
 # Remotion: la carpeta de recursos es media/, las rutas son relativas a media/soyluisart/brand/mascots/
@@ -50,5 +52,5 @@ for g in grupos:
 ts = "// Generado por scratchpad/pix/catalogo.py (copia en media/soyluisart/brand/mascots/catalogo.py). No editar a mano.\n// Claves: 'lupa-base', 'bit-ia-oscuro', 'f08-toro', '01-noche'... Rutas relativas a media/soyluisart/brand/mascots/.\n"
 ts += "export const MASCOT_EXPRESSIONS = " + json.dumps(EXPR) + " as const;\nexport type MascotExpression = (typeof MASCOT_EXPRESSIONS)[number];\n"
 ts += "export const MASCOTS: Record<string, { nombre: string; grupo: string; rutas: Record<MascotExpression, string> }> = " + json.dumps(idx, ensure_ascii=False, indent=1) + ";\n"
-open("C:/Users/LART/Documents/Proyectos/tubeai-video/channels/soyluisart/styles/pizarra/mascotIndex.ts", "w", encoding="utf-8").write(ts)
+open(REPO + "/channels/soyluisart/styles/pizarra/mascotIndex.ts", "w", encoding="utf-8").write(ts)
 print(len(idx), "sets;", sum(len(g["sets"]) for g in grupos), "en el catálogo;", len(grupos), "grupos")

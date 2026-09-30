@@ -1,8 +1,8 @@
 # Pipeline reference — commands and recipes
 
-Every command runs from the project root (`C:\Users\LART\Documents\Proyectos\tubeai-video`).
-`<v>` = the video folder name (`yyyy-mm-dd-slug`), `<M>` = `media/soyluisart/automated-research/<v>`,
-`<V>` = `channels/soyluisart/videos/<v>`, `<O>` = `out/soyluisart/videos/<v>`.
+Every command runs from the project root (`{PROJECT}`).
+`<v>` = the video folder name (`yyyy-mm-dd-slug`), `<M>` = `media/{CHANNEL}/automated-research/<v>`,
+`<V>` = `channels/soyluisart/videos/<v>`, `<O>` = `out/{CHANNEL}/videos/<v>`.
 `LOCK` = `npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts --` (holds
 `out/.render-lock`; one heavy job at a time on this machine).
 
@@ -25,13 +25,13 @@ Every command runs from the project root (`C:\Users\LART\Documents\Proyectos\tub
 
 ## 1. Ingest
 
-The raw file goes to `recordings/soyluisart/<v>-raw.<ext>` (never inside `media/`: it would be
+The raw file goes to `recordings/{CHANNEL}/<v>-raw.<ext>` (never inside `media/`: it would be
 copied on every render bundle). Never modify it.
 
 Probe it:
 
 ```bash
-ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,avg_frame_rate:stream_side_data=rotation -of compact recordings/soyluisart/<v>-raw.mp4
+ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,avg_frame_rate:stream_side_data=rotation -of compact recordings/{CHANNEL}/<v>-raw.mp4
 ```
 
 - A `rotation` side-datum (WhatsApp/phone files: e.g. 1024×576 with rotation −90) means the pixels
@@ -45,7 +45,7 @@ ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,avg_f
 Working copy (CFR 30, 1080×1920, 48 kHz audio kept for the voice):
 
 ```bash
-LOCK ffmpeg -y -i recordings/soyluisart/<v>-raw.mp4 \
+LOCK ffmpeg -y -i recordings/{CHANNEL}/<v>-raw.mp4 \
   -vf "scale=1080:1920:force_original_aspect_ratio=increase:flags=lanczos,crop=1080:1920,fps=30,format=yuv420p" \
   -c:v libx264 -crf 16 -preset slow -af "aresample=async=1" -c:a aac -b:a 192k -ar 48000 <M>/aroll-1080x1920.mp4
 ```
@@ -95,7 +95,7 @@ editing the JSON by hand without a note.
 {
   "source": "<M>/aroll-1080x1920.mp4",
   "matte": "<M>/aroll-person-alpha.webm",
-  "rawRecording": "recordings/soyluisart/<v>-raw.mp4",
+  "rawRecording": "recordings/{CHANNEL}/<v>-raw.mp4",
   "fps": 30,
   "keep": [{ "in": 0.0, "out": 20.7 }, { "in": 22.0, "out": 43.5 }],
   "removed": [{ "in": 20.7, "out": 22.0, "text": "y gana 10%,", "reason": "flub: …" }]

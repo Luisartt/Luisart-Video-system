@@ -1,7 +1,16 @@
 ---
 name: luisart-editar-short
-description: End-to-end AUTOMATIC edit of a @soyluisart raw recording into finished videos — first ONE question (which style — Luisart full board, Luisart split or Kallaway), then fully automatic — ingest (rotation, variable frame rate), Whisper transcript, script comparison, cutting mistakes, voice master, person matte, face tracking, beat planning, Luisart board scenes or the Kallaway split with ChatGPT B-roll, full-board vertical + split-screen vertical + horizontal versions, baked sound design, face-aware captions, locked renders, QA, loudness, word check, Codex review, delivery and a Spanish report. Use it whenever the user (or the main chat) hands over a recording or video file of Luis for the channel — "edita este video", "te mandé la grabación", "hazme el short/reel/tiktok", "edítalo como el de la P/U", "nuevo video para soyluisart", a path in recordings/soyluisart/ — even if they don't say "edit", and whenever a new @soyluisart video must go from raw footage to final files. Also use it to resume or re-render an existing @soyluisart video after feedback.
+description: End-to-end AUTOMATIC edit of a @soyluisart raw recording into finished videos — first ONE question (which style — Luisart full board, Luisart split or Kallaway), then fully automatic — ingest (rotation, variable frame rate), Whisper transcript, script comparison, cutting mistakes, voice master, person matte, face tracking, beat planning, Luisart board scenes or the Kallaway split with ChatGPT B-roll, full-board vertical + split-screen vertical + horizontal versions, baked sound design, face-aware captions, locked renders, QA, loudness, word check, Codex review, delivery and a Spanish report. Use it whenever the user (or the main chat) hands over a recording or video file of Luis for the channel — "edita este video", "te mandé la grabación", "hazme el short/reel/tiktok", "edítalo como el de la P/U", "nuevo video para soyluisart", a path in recordings/{CHANNEL}/ — even if they don't say "edit", and whenever a new @soyluisart video must go from raw footage to final files. Also use it to resume or re-render an existing @soyluisart video after feedback.
 ---
+
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
 
 # Edit a @soyluisart video, raw recording → final videos
 
@@ -28,7 +37,7 @@ If he doesn't say or says "la que quieras", use 1 (Luisart full board, the defau
 chat already passes the style in the request, don't ask again. Then work without asking.
 
 **Deliverables (default for Luisart, options 1 and 2):** three MP4s in
-`out/soyluisart/videos/<v>/`, 30 fps, sound baked in:
+`out/{CHANNEL}/videos/<v>/`, 30 fps, sound baked in:
 1. vertical 1080×1920 **full-board** Luisart edit (`SLA-<v>-short-pizarra`);
 2. vertical 1080×1920 **split-screen** edit (Nick Saraev grammar: graphic on top, face card below
    with the head breaking out) (`SLA-<v>-short-split`);
@@ -42,13 +51,13 @@ the images, section clicks, zero whooshes) with the reference edit
 `videos/2026-09-27-per-barato/scenes/kallaway/` (`layout.ts`, `faces.ts`, `captions.ts`,
 `kalCues.ts`, `KalShort.tsx`, `checkCaptions.ts`). Its B-roll: ChatGPT images through the Codex
 CLI (`codex exec`, one call at a time, prompts and blocks in the Kallaway ANALISIS.md §S.8),
-saved to `media/soyluisart/automated-research/<v>/kallaway-gen/` with a `SOURCES.md`; everything
+saved to `media/{CHANNEL}/automated-research/<v>/kallaway-gen/` with a `SOURCES.md`; everything
 else is built in Remotion. Steps 8–12 below then follow the Kallaway reference instead of the
 Luisart boards (no board elements, no behind-head words, no marker arrows).
 
 ## Before you start
 
-1. Load skill `luisart-reglas` (the shared checklist) and read `channels/soyluisart/CHANNEL.md`
+1. Load skill `luisart-reglas` (the shared checklist) and read `{CHANNEL_DIR}/CHANNEL.md`
    section ★ in full — it is the source of truth and changes often. Read `GUIDELINES.md` (machine
    limits) and `PROJECTS.md`.
 2. Read the template video end to end:
@@ -57,12 +66,12 @@ Luisart boards (no board elements, no behind-head words, no marker arrows).
    (`layout.ts`, `groups.ts`, `Boards.tsx`, `PizShort.tsx`, `SplitShort.tsx`,
    `HorizontalShort.tsx`, `captionRule.ts`, `captionPlace.ts`, `checkCaptions.ts`, `pizCues.ts`),
    `scenes/figures.ts`, `scenes/music.ts`, `scenes/timing.ts`, `cut/`. Copy it; don't reinvent it.
-3. **Vault (read-routing):** in `C:\Users\LART\Documents\Lartyk\wiki\Content Creation\`
+3. **Vault (read-routing):** in `{VAULT}\wiki\Content Creation\`
    read ONLY `Editing System\`, the chosen style's folder under `Styles\`, its `Designs\<style>\`,
    the creators behind that style (`References\Creators\`) and `Videos\<YYYY-MM-DD slug>\` if it
    exists (the script skill may have left `Sources Used.md` and the script there). Style → folder
    map: skill `luisart-reglas` → "Where to read". **Never read `wiki\Knowledge\` or
-   `Finanzas\`.** The repo files above stay the source of truth when they disagree.
+   `{KNOWLEDGE_DIR}\`.** The repo files above stay the source of truth when they disagree.
 4. Pick the folder name `<v>` = `yyyy-mm-dd-slug` (date of today, short Spanish slug).
 5. After his style answer (step 0), tell him once, in Spanish, that you're on it and roughly how
    long it takes (a 45 s short: about an hour of machine time, most of it renders; Kallaway adds
@@ -83,8 +92,8 @@ Run them one at a time.
 
 Exact commands, file formats and flags: [references/pipeline.md](references/pipeline.md).
 
-1. **Ingest.** Put the raw file in `recordings/soyluisart/<v>-raw.<ext>` (never in `media/`).
-   Probe it; make the working copy `media/soyluisart/automated-research/<v>/aroll-1080x1920.mp4`:
+1. **Ingest.** Put the raw file in `recordings/{CHANNEL}/<v>-raw.<ext>` (never in `media/`).
+   Probe it; make the working copy `media/{CHANNEL}/automated-research/<v>/aroll-1080x1920.mp4`:
    rotation applied, constant 30 fps (phones and WhatsApp record variable frame rate), 48 kHz audio.
    If it came through WhatsApp (576×1024, heavy compression), continue, and add the recording tip
    to the report. A horizontal recording: the vertical versions use a face-tracked crop
@@ -133,15 +142,15 @@ Exact commands, file formats and flags: [references/pipeline.md](references/pipe
 15. **Codex review** with skill `luisart-revision-codex` on every deliverable: contact sheets,
     rule checklist, verify each finding, write `CODEX-REVIEW.md`, fix, re-render, re-review
     until clean.
-16. **Deliver:** final files in `out/soyluisart/videos/<v>/` (older drafts stay, never
+16. **Deliver:** final files in `out/{CHANNEL}/videos/<v>/` (older drafts stay, never
     overwritten: next round is `…-v2.mp4`); clean up `_premaster-*`, `_mix-*` and the matte
     `.mov`. Update `BRIEF.md` (renders, cue table, check results, open questions) and
     `PROJECTS.md` (the video row: status, next step, date; the channel line and counts). Then
     update the vault's video folder
-    `C:\Users\LART\Documents\Lartyk\wiki\Content Creation\Videos\<YYYY-MM-DD slug>\`
+    `{VAULT}\wiki\Content Creation\Videos\<YYYY-MM-DD slug>\`
     (English; e.g. `2026-09-27 PE Ratio Short`; create it on the first delivery; conventions in
     the vault manual `CLAUDE.md`): brief summary, version history (full paths into
-    `tubeai-video/out/`, never copy videos), pending decisions, and `Sources Used.md` — create or
+    `{PROJECT}/out/`, never copy videos), pending decisions, and `Sources Used.md` — create or
     update it every time with this edit's sources (the script, primary sources of real figures in
     `figures.ts`, `automated-research/<v>/SOURCES.md`), keeping every entry `luisart-guion` wrote
     (its Knowledge links are kept as-is, not opened). Copy the new contact sheets (PNG) into `Designs\<style>\` and refresh that
@@ -163,7 +172,7 @@ Keep it short. Use this shape:
 
 ```
 ¡Listo! Tu video "<título>" ya está editado. Te dejo 3 versiones en
-out/soyluisart/videos/<v>/:
+out/{CHANNEL}/videos/<v>/:
 - Vertical con pizarra completa: SLA-<v>-short-pizarra.mp4
 - Vertical con pantalla dividida (animación arriba, tú abajo): SLA-<v>-short-split.mp4
 - Horizontal para YouTube: SLA-<v>-short-pizarra-h.mp4

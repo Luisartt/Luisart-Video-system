@@ -3,24 +3,33 @@ name: luisart-producir-desde-guion
 description: Start a real @soyluisart video from the two things Luisart brings — the written script and the recording he made — by analysing the recording, transcribing it (Whisper), comparing it with the script, deciding the format (vertical or horizontal leads; both are delivered by default), and handing a ready brief to the editing pipeline with the chosen style. Use when Luisart says "ya tengo el guion y el video", "aquí está la grabación", "vamos a las pruebas con mi video", "edita este video con este guion", "¿vertical u horizontal?", "analiza y transcribe mi grabación". It is the front door; luisart-editar-short does the heavy editing after it.
 ---
 
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
+
 # From script + recording to a briefed edit
 
 Luisart is not technical and writes Spanish. He brings a **script** (text, or a `Videos/<date slug>/`
 folder in the vault written with `luisart-guion`) and a **recording** (phone video, often vertical,
 sometimes via WhatsApp). This skill does the analysis and decisions; he answers at most **one**
-question (the style) and sees the result. Channel rules: `channels/soyluisart/CHANNEL.md` ★ and
+question (the style) and sees the result. Channel rules: `{CHANNEL_DIR}/CHANNEL.md` ★ and
 `luisart-reglas` (load it). Never pick music, never clone his voice, never publish, never change
 what he said.
 
 ## Steps
 
 1. **Collect inputs.** Script: a file he dropped, text in the chat (save it to
-   `media/soyluisart/automated-research/<v>/guion.txt`), or the vault's
+   `media/{CHANNEL}/automated-research/<v>/guion.txt`), or the vault's
    `wiki/Content Creation/Videos/<YYYY-MM-DD slug>/` script. Recording: the file he names; put it
-   in `recordings/soyluisart/<v>-raw.<ext>` (never in `media/`, never modify it). `<v>` =
+   in `recordings/{CHANNEL}/<v>-raw.<ext>` (never in `media/`, never modify it). `<v>` =
    `yyyy-mm-dd-slug`. If a piece is missing, ask for that piece only.
 2. **Analyse the recording and decide the format:**
-   `python .claude/skills/luisart-producir-desde-guion/scripts/analizar_grabacion.py recordings/soyluisart/<v>-raw.<ext> --guion <guion> --json media/soyluisart/automated-research/<v>/grabacion.json`
+   `python .claude/skills/luisart-producir-desde-guion/scripts/analizar_grabacion.py recordings/{CHANNEL}/<v>-raw.<ext> --guion <guion> --json media/{CHANNEL}/automated-research/<v>/grabacion.json`
    It reads size, rotation, frame rate, duration and audio, and returns the **format that leads**
    and why. Rules it applies, most specific first: platform named (YouTube / long video →
    horizontal; Short / Reel / TikTok → vertical); else the orientation of the recording; else
@@ -31,12 +40,12 @@ what he said.
    example a landscape recording for a script marked Short), decide with the rules above and
    state it; do not ask.
 3. **Transcribe** under the render lock, Spanish by default (`--lang english|auto` if needed):
-   `npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <audio or video> media/soyluisart/automated-research/<v>/transcript-words.json --lang spanish`
+   `npx tsx .claude/skills/luisart-editar-short/scripts/with_lock.ts -- .venv/Scripts/python.exe -W ignore .claude/skills/luisart-editar-short/scripts/transcribe_parts.py <audio or video> media/{CHANNEL}/automated-research/<v>/transcript-words.json --lang spanish`
    then the readable version with `whisper_to_md.py` (`**[mm:ss]**` paragraphs). Correct names and
    terms against the glossary; doubtful words stay flagged `(sic)`. Never summarise from memory:
    the transcript is the source.
 4. **Compare with the script:**
-   `python .claude/skills/luisart-producir-desde-guion/scripts/comparar_guion.py <guion> media/soyluisart/automated-research/<v>/transcript-words.json --md media/soyluisart/automated-research/<v>/guion-vs-dicho.md`
+   `python .claude/skills/luisart-producir-desde-guion/scripts/comparar_guion.py <guion> media/{CHANNEL}/automated-research/<v>/transcript-words.json --md media/{CHANNEL}/automated-research/<v>/guion-vs-dicho.md`
    Coverage, skipped passages, ad-libs and every changed number. Figures or facts that are wrong
    or inconsistent are **flagged, not fixed**: the screen will show the consistent version from
    `figures.ts`, and the report gives Luisart the options.

@@ -4,8 +4,8 @@ Workflow rules for this project. Source of truth for every chat and agent.
 
 Cross-agent guide to the whole process (Codex, sub-agents, any AI agent): [`AGENTS.md`](AGENTS.md).
 
-The full reference these rules come from is the `tubeai-video` skill:
-`C:\Users\LART\.claude\plugins\cache\tubeai-skills\tubeai\1.4.0\skills\tubeai-video\SKILL.md`.
+The full reference these rules come from is the `{PROJECT}` skill:
+`C:\Users\<user>\.claude\plugins\cache\tubeai-skills\tubeai\1.4.0\skills\tubeai-video\SKILL.md`.
 Its sections **Workflow**, **Layout**, **Channels**, **Style references**, **Media**, **Voice and
 transcripts**, **Editing a recording**, **Inserts**, **Core templates**, **Rendering**,
 **Troubleshooting** and **Timeline recipe** apply here as written. Read the sections your task
@@ -55,29 +55,29 @@ Checked 2026-09-27.
   checklist, points to CHANNEL.md ★), `luisart-editar-short` (raw recording → final vertical,
   split and horizontal videos, fully automatic), `luisart-diseno-sonoro` (SFX, whooshes, music,
   loudness), `luisart-animaciones-pizarra` (new Luisart elements and deliveries),
-  `luisart-revision-codex` (Codex review loop before every delivery), `luisart-procesar-material` (the `Finanzas/rawc/` inbox — blogs, papers, books, podcasts, videos; audio and video always through Whisper; notes into `wiki/Knowledge/`, source filed by subject in `Finanzas/`), `luisart-procesar-referencias`
-  (the `Creacion de Contenido/rawcc/` inbox — one folder per reference or Web Clipper
+  `luisart-revision-codex` (Codex review loop before every delivery), `luisart-procesar-material` (the `{KNOWLEDGE_INBOX}/` inbox — blogs, papers, books, podcasts, videos; audio and video always through Whisper; notes into `wiki/Knowledge/`, source filed by subject in `{KNOWLEDGE_DIR}/`), `luisart-procesar-referencias`
+  (the `{CONTENT_INBOX}/` inbox — one folder per reference or Web Clipper
   notes — download,
   transcribe, analyse edit + script/diction, sample renders — only when the user asks; notes go to
   `wiki/Content Creation/References/Analyzed Videos/`, sources filed by category in
-  `Creacion de Contenido/`; "procesa rawc y rawcc" runs both inboxes), `luisart-guion` (write or review a video script in
+  `{CONTENT_DIR}/`; "procesa rawc y rawcc" runs both inboxes), `luisart-guion` (write or review a video script in
   Spanish, complemented with the finance knowledge base), `luisart-montar-sistema` (set up / move the system to another computer, 2026-09-30), `luisart-configurar-estilo` (style profiles) and `luisart-producir-desde-guion` (script + recording → analysis, transcript, format decision, brief).
 - **Knowledge vault** (2026-09-28): the Obsidian vault
-  `C:\Users\LART\Documents\Lartyk\` (English wiki, manual `CLAUDE.md`
+  `{VAULT}\` (English wiki, manual `CLAUDE.md`
   there; layout and read-routing table in [`AGENTS.md`](AGENTS.md) section 2). Two raw folders,
-  named by the user: `Creacion de Contenido/` (channel references) and `Finanzas/`
+  named by the user: `{CONTENT_DIR}/` (channel references) and `{KNOWLEDGE_DIR}/`
   (course and book sources). Editing skills read only `wiki/Content Creation/` and never
-  `wiki/Knowledge/` or `Finanzas/`; only `luisart-guion` searches `wiki/Knowledge/`
+  `wiki/Knowledge/` or `{KNOWLEDGE_DIR}/`; only `luisart-guion` searches `wiki/Knowledge/`
   (read-only). History only: the old `conocimiento/` vault is archived at
-  `archive/soyluisart/conocimiento-migrado-2026-09-28/`; the old root `RAW/` inbox is replaced by
-  `Creacion de Contenido/`.
-  The vault is the private GitHub repo `Luisartt/lartyk` (pull at the start of a vault task, commit and push at the end; video and audio live in Google Drive `My Drive/lartyk/videos/`; details in the vault's `CLAUDE.md` → "Sync between devices").
+  `archive/{CHANNEL}/conocimiento-migrado-2026-09-28/`; the old root `RAW/` inbox is replaced by
+  `{CONTENT_DIR}/`.
+  The vault is the private GitHub repo `<your-vault-repo>` (pull at the start of a vault task, commit and push at the end; video and audio live in Google Drive `{CLOUD}/videos/`; details in the vault's `CLAUDE.md` → "Sync between devices").
 - Python `.venv` (3.12): PyTorch 2.5.1+cu121 (CUDA works on the RTX 4050), `qwen-tts`,
   `crisperwhisper[transformers]`, `opentimelineio` + FCP7 and FCPX adapters; `facenet-pytorch`
   (installed `--no-deps` to keep torch 2.5.1; MTCNN weights ship in the package) for
   `core/scripts/py/face_track.py` (face box per frame → face-aware captions), `opencv-python-headless`
   and `mediapipe` (mediapipe 1.x has no bundled face model; not used).
-- **Design tools** (2026-09-29): skills `taste-skill`, `redesign-skill`, `brutalist-skill`, `brandkit`, `output-skill`, `impeccable` (no hooks), `playwright-cli` (also installed globally) and `img2threejs` in `.claude/skills/`; the rule for using them at design time is the vault page `wiki/Content Creation/Designs/Design Rules and Tools.md` (brand and `luisart-reglas` win over these tools); full clones in `tools/design-repos/`, reference `DESIGN.md` files in the vault `Creacion de Contenido/Design Tools/`.
+- **Design tools** (2026-09-29): skills `taste-skill`, `redesign-skill`, `brutalist-skill`, `brandkit`, `output-skill`, `impeccable` (no hooks), `playwright-cli` (also installed globally) and `img2threejs` in `.claude/skills/`; the rule for using them at design time is the vault page `wiki/Content Creation/Designs/Design Rules and Tools.md` (brand and `luisart-reglas` win over these tools); full clones in `tools/design-repos/`, reference `DESIGN.md` files in the vault `{CONTENT_DIR}/Design Tools/`.
 - npm scripts: `studio`, `render`, `render:alpha`, `still`, `gpu`, `qa`
   (`npm run qa -- <file> [--allow-white]`; `--allow-white` for clips with a deliberate white
   flash).

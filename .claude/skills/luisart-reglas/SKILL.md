@@ -3,9 +3,18 @@ name: luisart-reglas
 description: One-page checklist of the @soyluisart channel rules (Luisart style, the Kallaway style's exceptions, captions, safe zones, no plates behind text, "Luisart" spelling, sample-data labels, MXN/US$, sound design, whooshes, music, loudness, deliverables). Load it before planning, building, reviewing or delivering ANY @soyluisart video, short, reel, TikTok, Luisart animation or sound design, and whenever the user asks what the channel rules are, whether something is allowed ("¿puedo poner subtítulos aquí?", "¿se permite un recuadro?", "¿qué música?"), or when two rules seem to conflict. The other luisart-* skills all share this checklist.
 ---
 
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
+
 # @soyluisart rules — shared checklist
 
-**The rules live in exactly one place:** `channels/soyluisart/CHANNEL.md`, section
+**The rules live in exactly one place:** `{CHANNEL_DIR}/CHANNEL.md`, section
 "★ Graphics standard" (and, for style specifics, `channels/soyluisart/styles/pizarra/README.md` and
 `channels/soyluisart/styles/kallaway/README.md`).
 This page is a compact checklist that points there. If this page and CHANNEL.md ever disagree,
@@ -112,7 +121,7 @@ Codex reviews cite them by letter.
   out of the board explanation, a chapter change). Never on an element, card change, punch-in or
   board-to-board hard cut.
 - **(h) Music: never chosen by Claude.** Only a file the user drops in
-  `media/soyluisart/user-provided/musica/` and names; otherwise NO music bed.
+  `media/{CHANNEL}/user-provided/musica/` and names; otherwise NO music bed.
 - **Loudness:** ≈ −14 LUFS integrated, true peak ≤ −1 dBTP (voice ≈ −15/−16, SFX −12 to −18 dB
   under it, user music −20 to −24 LUFS ducked).
 - Details: skill `luisart-diseno-sonoro`.
@@ -136,7 +145,7 @@ Codex reviews cite them by letter.
 
 ## Where to read (vault routing, 2026-09-28)
 
-The Obsidian vault `C:\Users\LART\Documents\Lartyk\` (English wiki,
+The Obsidian vault `{VAULT}\` (English wiki,
 manual `CLAUDE.md` at its root) holds a compiled copy of these rules and the channel history. It
 summarises; CHANNEL.md ★ and this checklist stay the source of truth (if a vault page disagrees,
 they win: flag the drift).
@@ -150,11 +159,11 @@ they win: flag the drift).
   Castellanos · Luisart split → `Styles\Luisart Split` (+ `Styles\Luisart`), `Designs\Luisart
   Split`, Nick Saraev · Kallaway → `Styles\Kallaway`, `Designs\Kallaway`, Kallaway · Terminal /
   Documental → `Styles\Terminal and Documentary`, `Designs\Terminal`, `Designs\Documentary`.
-- **Editing never reads `wiki\Knowledge\` or `Finanzas\`** — editing processes must not
+- **Editing never reads `wiki\Knowledge\` or `{KNOWLEDGE_DIR}\`** — editing processes must not
   mix with the knowledge base.
 - Writing or reviewing a script is the one content task that searches `wiki\Knowledge\` (read-only),
   through skill `luisart-guion`. Processing references: skill `luisart-procesar-referencias`
-  (inbox `Creacion de Contenido\`).
+  (inbox `{CONTENT_DIR}\`).
 
 ## Talking to the user
 

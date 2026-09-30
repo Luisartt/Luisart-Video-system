@@ -3,6 +3,15 @@ name: luisart-configurar-estilo
 description: Define, adjust or clone an EDITING STYLE for @soyluisart videos as a single style profile (layout, captions, motion, sound, colour, pacing, deliverables, exceptions to the channel rules) that the editing skill can read and apply. Use when Luisart says "quiero crear un estilo", "configura un estilo de edición", "haz un estilo como este video", "ajusta el estilo Luisart/Kallaway/…", "guarda este estilo", "quiero que los ejemplos se vean así", or after a reference analysis when he likes a pattern and wants it turned into a style or a new element. Builds the profile and a sample; does not edit a real video (luisart-editar-short / luisart-producir-desde-guion do).
 ---
 
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
+
 # Configure an editing style
 
 A style is one folder with one readable profile. Today's styles live in
@@ -13,7 +22,7 @@ style (or a variant) can be created, tuned and moved to another computer without
 
 Luisart is not technical and writes Spanish. Ask only what cannot be decided from a reference; the
 AI chooses everything else and shows a sample. Channel rules win over every style except the
-exceptions he explicitly approves (`channels/soyluisart/CHANNEL.md` ★ and `luisart-reglas`; the
+exceptions he explicitly approves (`{CHANNEL_DIR}/CHANNEL.md` ★ and `luisart-reglas`; the
 only approved exceptions so far are Kallaway's). Never change a channel rule or pick music on his
 behalf.
 
@@ -65,7 +74,7 @@ It has fixed sections so any style can be compared with another:
 6. **Show it to Luisart in the chat** (the video and three or four lines of what it is). Do not
    write to the wiki or register the style yet.
 7. **When he approves:** set `status: sample-approved`/`approved`; register the style in
-   `channels/soyluisart/CHANNEL.md` ★ "Style options" (only with his decision) and in the editing
+   `{CHANNEL_DIR}/CHANNEL.md` ★ "Style options" (only with his decision) and in the editing
    skill's Step 0 list; in the vault write `wiki/Content Creation/Styles/<Style>/<Style>.md` (+
    gallery; contact sheets to `Designs/<Style>/`), update `Styles Overview.md`, add a `[content]`
    line to `wiki/Log.md`, then commit and push the vault (vault `CLAUDE.md` rules). Copy the style

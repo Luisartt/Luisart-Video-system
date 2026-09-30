@@ -3,25 +3,34 @@ name: luisart-diseno-sonoro
 description: Sound design for @soyluisart videos and Luisart animations — which SFX goes on which graphic event, how many frames before the visual each file must start (hit offsets from sfx-index.json / GUIA-EFECTOS.md), the whoosh rule, wiring cues in Remotion (Sfx / SfxCue / cue() + SfxTrack), music (only the user's own file), ducking, loudness targets and the master chain. Use it whenever you add, change, check or talk about sounds, SFX, efectos de sonido, whooshes, música de fondo, volumen, loudness/LUFS or the mix of any @soyluisart edit or library element — including "los efectos suenan tarde", "súbele a la voz", "ponle música", "¿por qué no hay música?".
 ---
 
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
+
 # Sound design for @soyluisart
 
 Sound design is **mandatory and baked into every render** — Luis stresses it. Every graphic event
 gets its own specific sound on the frame the visual lands; the voice stays king.
 
 Sources of truth (read before choosing sounds):
-- `channels/soyluisart/CHANNEL.md` ★ (rules: sound design, whooshes, music) — skill `luisart-reglas`.
-- `media/soyluisart/audio/GUIA-EFECTOS.md` (Spanish; general rules, default map per element type,
+- `{CHANNEL_DIR}/CHANNEL.md` ★ (rules: sound design, whooshes, music) — skill `luisart-reglas`.
+- `media/{CHANNEL}/audio/GUIA-EFECTOS.md` (Spanish; general rules, default map per element type,
   whoosh pre-rolls, hook recipes, full catalogue by category, 207 files).
-- `media/soyluisart/audio/efectos/sfx-index.json` (machine-readable: `file`, `peakFrame30`,
+- `media/{CHANNEL}/audio/efectos/sfx-index.json` (machine-readable: `file`, `peakFrame30`,
   `preRollFrames30`, `volume`, `durationSec`, `when`, `license`…).
-- `media/soyluisart/audio/LICENCIAS.md` — only audio cleared for monetised YouTube/Shorts/TikTok.
+- `media/{CHANNEL}/audio/LICENCIAS.md` — only audio cleared for monetised YouTube/Shorts/TikTok.
 - The Luisart element map: `channels/soyluisart/styles/pizarra/theme.ts → piz.sfx`.
 
 Vault (read-routing, background only — the files above win): in
-`C:\Users\LART\Documents\Lartyk\wiki\Content Creation\` read ONLY
+`{VAULT}\wiki\Content Creation\` read ONLY
 `Editing System\Sound\` (and the rest of `Editing System\`), the chosen style's folder under
 `Styles\`, that style's creators in `References\Creators\` and `Videos\<YYYY-MM-DD slug>\`.
-**Never read `wiki\Knowledge\` or `Finanzas\`.**
+**Never read `wiki\Knowledge\` or `{KNOWLEDGE_DIR}\`.**
 
 ## The rules
 
@@ -41,15 +50,15 @@ Vault (read-routing, background only — the files above win): in
    ka-ching, keyword ding) every 5–8 s.
 5. **The voice rules.** Nothing strong on top of a spoken keyword: put it in the gap or drop it to
    ≤ 0.2. SFX sit −12 to −18 dB under the voice. Captions carry no sound.
-6. **Music: never choose it.** Only a file Luis puts in `media/soyluisart/user-provided/musica/`
+6. **Music: never choose it.** Only a file Luis puts in `media/{CHANNEL}/user-provided/musica/`
    and names. Otherwise no music bed at all (he rejected "Stylz" and every library / trending
    option). Trending songs are added by him inside the platform app, never baked in. Don't use
-   `media/soyluisart/audio/fondos*/` for his videos.
+   `media/{CHANNEL}/audio/fondos*/` for his videos.
 
 ## Event → sound (Luisart defaults)
 
 `pre` = frames the file starts before the visual event (= its measured hit frame). `vol` =
-Remotion `volume` against a ≈ −15/−16 LUFS voice. Paths under `media/soyluisart/audio/efectos/`.
+Remotion `volume` against a ≈ −15/−16 LUFS voice. Paths under `media/{CHANNEL}/audio/efectos/`.
 Key in `piz.sfx` shown in brackets.
 
 | Event | File | pre | vol |
@@ -139,4 +148,4 @@ in BRIEF.md; rights for his own file are his call.
 
 "Todo lleva efectos de sonido (un sonido distinto para cada cosa que aparece; el whoosh solo al
 inicio y en los cambios de escena). Música: ninguna, porque no me pasaste una — si quieres, pon el
-archivo en la carpeta `media/soyluisart/user-provided/musica/` y dime cuál."
+archivo en la carpeta `media/{CHANNEL}/user-provided/musica/` y dime cuál."

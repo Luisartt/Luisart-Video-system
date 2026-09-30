@@ -1,11 +1,11 @@
 // Ejemplo de carrusel @soyluisart (Pizarra): "5 errores con tus primeros $5,000 MXN". 8 diapositivas 1080x1350 hechas con HTML/CSS y capturadas con Playwright.
-// Uso:  node render.cjs <carpeta de salida>      (las imágenes de la marca salen de la bóveda: .inicio/logos)
+// Uso:  node render.cjs <carpeta de salida>      (las imágenes de la marca salen de media/soyluisart/brand/homepage-logos/png, o de LOGOS_DIR)
 const { chromium } = require("playwright");
 const path = require("path");
 const fs = require("fs");
 
 const SALIDA = process.argv[2] || path.join(__dirname, "salida");
-const LOGOS_DIR = "C:/Users/LART/Documents/Lartyk/.inicio/logos/";
+const LOGOS_DIR = (process.env.LOGOS_DIR || path.join(__dirname, "..", "..", "..", "..", "media", "soyluisart", "brand", "homepage-logos", "png")).replace(/\\/g, "/") + "/";
 const uri = (n) => "data:image/png;base64," + fs.readFileSync(LOGOS_DIR + n).toString("base64");
 const BIT = uri("bit-marca.png"), BIT_PARP = uri("bit-marca-parpadeo.png");
 const TOTAL = 8;

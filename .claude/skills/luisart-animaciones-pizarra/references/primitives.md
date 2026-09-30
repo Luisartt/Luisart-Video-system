@@ -104,5 +104,5 @@ correct, tick, shutter, snap, bubble, whoosh (transitions only). See skill `luis
 
 `LOGOS` (chatgpt, claude, gemini, perplexity, deepseek, grok, copilot, cursor, mistral,
 midjourney, n8n, zapier — original files in
-`media/soyluisart/automated-research/logos/`), `logoSrc(key, keySafe)` (mono marks over green),
+`media/{CHANNEL}/automated-research/logos/`), `logoSrc(key, keySafe)` (mono marks over green),
 `logoField`. Logos are shown unmodified.

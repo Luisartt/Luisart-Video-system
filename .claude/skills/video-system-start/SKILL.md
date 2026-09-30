@@ -42,13 +42,13 @@ Shorts, YouTube long), how they record (phone / camera / screen / voiceover only
 creators or brands they admire. Save to `brand.json`.
 
 ### Stage 2 — Set up the computer
-Check and, if needed, install everything: run `scripts/design/../../.claude/skills/luisart-montar-sistema/scripts/verificar_equipo.ps1`
+Check and, if needed, install everything: run `.claude/skills/luisart-montar-sistema/scripts/verificar_equipo.ps1`
 (Windows) and follow the skill `luisart-montar-sistema` (tools, Node, FFmpeg, Python 3.12, Remotion
 via `npm ci`, the Python environment, Whisper). Also `scripts/instalar-herramientas.ps1` and
 `scripts/instalar-proyecto.ps1`. On macOS/Linux translate the same tools (brew/apt); say so.
-Also check the AI CLIs and models with `docs/MODELOS-Y-CLIS.md` (Claude Code, Codex CLI, and the
-options for images and video generation: ChatGPT via Codex, Higgsfield, fal.ai) — present the options,
-recommend the default, let the user choose, and record the choice in `brand.json`.
+Then create the paths with `python scripts/configurar_rutas.py --create --channel <slug> [--vault <folder>] [--cloud <folder>]`
+(writes `brand/paths.json`; the user can edit it later). Check the AI CLIs with `docs/MODELOS-Y-CLIS.md`; for
+images and generated clips the tool just goes through Codex or the Higgsfield API and picks the model itself.
 Finish with a 3-second test render (`npx remotion still core/index.ts TPL-title-card out/test.png`).
 Explain what Remotion is: "a program that builds video from code, so every graphic can follow your brand".
 
@@ -84,9 +84,8 @@ graphics, but it is what makes scripts and references compound over time.
 Skill `luisart-configurar-estilo` writes the style profile (`channels/<slug>/styles/<style>/STYLE.md`).
 Create `channels/<slug>/CHANNEL.md` from `channels/_template/CHANNEL.template.md` by asking the
 handful of rule questions in it (captions, music, safe zones, loudness, what is never allowed).
-Set `brand.json → active_channel` to the slug: from now on the editing skills must read
-`channels/<active_channel>/CHANNEL.md` where they say `channels/soyluisart/CHANNEL.md` (the
-Luisart channel is the worked example).
+Set `brand.json → active_channel` to the slug (same as `paths.json → channel`): the editing skills read
+`{CHANNEL_DIR}/CHANNEL.md` (the Luisart channel in `channels/soyluisart/` is the worked example).
 
 ### Stage 7 — Script and first video
 Skill `luisart-guion` to write or review the script (skip its vault/knowledge steps if the user has

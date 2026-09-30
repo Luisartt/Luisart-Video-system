@@ -3,20 +3,29 @@ name: luisart-guion
 description: Write or review the script (guion) of a @soyluisart video on a given topic — reads the channel's script and diction playbook, templates and reference diction analyses in the vault's wiki/Content Creation/Scripts/, then searches the finance / business knowledge base (wiki/Knowledge/, read-only) for definitions, examples, numbers, nuances and common mistakes that can make the video better, proposes which ones to use, writes the script in Spanish with the channel rules (hook, beats, "dato de ejemplo · MXN", "Luisart" spelling) and records the knowledge pages used in the video's Sources Used.md. Use it whenever the user or the main chat wants a script — "hazme un guion de…", "escribe el guion", "revisa mi guion", "¿qué le agrego al guion?", "mejora este guion", "guion para un short sobre…", "¿cómo explico X en un video?" — and before recording a new @soyluisart video when no script exists yet.
 ---
 
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
+
 # Script for a @soyluisart video (write or review)
 
 The user (Luisart) is not technical and writes in Spanish. His videos are in Spanish (Mexico):
 **the script is written in Spanish**; the vault notes this skill writes are in English. Chat with
 him in Spanish, plain words.
 
-Vault root: `C:\Users\LART\Documents\Lartyk\` (`VAULT` below; manual
+Vault root: `{VAULT}\` (`VAULT` below; manual
 `VAULT\CLAUDE.md`). This is the one content task allowed to search `VAULT\wiki\Knowledge\` —
 **read-only**: never create, edit, move or re-link a Knowledge page from here, and never read
-`VAULT\Finanzas\` (the wiki already compiles it; if Knowledge lacks something, say so in
+`VAULT\{KNOWLEDGE_DIR}\` (the wiki already compiles it; if Knowledge lacks something, say so in
 the report instead).
 
 ## 1 · Read the channel side first
-- Skill `luisart-reglas` and `channels/soyluisart/CHANNEL.md` ★ (glossary, "Luisart" spelling,
+- Skill `luisart-reglas` and `{CHANNEL_DIR}/CHANNEL.md` ★ (glossary, "Luisart" spelling,
   example-figure labels, MXN/US$, deliverables, the style options).
 - `VAULT\wiki\Content Creation\Scripts\` — the script and diction playbook, the templates, and
   any finished scripts of earlier videos (reuse what worked).
@@ -71,7 +80,7 @@ Goal: definitions, examples, numbers, nuances and common mistakes that can compl
   pages are linked from these notes, never edited.
 
 ## Don'ts
-- Never write, edit or move anything in `wiki\Knowledge\`; never read `Finanzas\`.
+- Never write, edit or move anything in `wiki\Knowledge\`; never read `{KNOWLEDGE_DIR}\`.
 - Never invent figures, quotes or sources; unsourced numbers are "dato de ejemplo".
 - Never uppercase "Luisart". Never publish anything.
 - This skill does not edit video: hand the script to the main chat / `luisart-editar-short`.

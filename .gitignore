@@ -18,3 +18,6 @@ brand/references/_local/
 # your own vault lives in its own PRIVATE repository, never here
 vault/
 MyVault/
+__pycache__/
+*.pyc
+brand/paths.json

@@ -22,16 +22,20 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
 `luisart-guion` → `luisart-producir-desde-guion` → `luisart-editar-short` → `luisart-revision-codex`.
 Models and CLIs guide: `docs/MODELOS-Y-CLIS.md`. All tools: `TOOLS.md`.
 
-## Mapping the original names to the user's (important)
-The example skills name the original creator's paths. When following them for someone else, substitute:
-- `channels/soyluisart/CHANNEL.md` and `channels/soyluisart/…` → `channels/<brand.json.active_channel>/…`
-  (create `CHANNEL.md` from `channels/_template/CHANNEL.template.md`; the soyluisart one stays as reference).
-- `Finanzas/` → `brand.json.vault.knowledge_dir`; `Creacion de Contenido/` → `vault.content_dir`; the vault
-  root (`…\Lartyk`) → `vault.path`; the project root (`…\tubeai-video`) → this repository's folder.
-- Brand values (colours, fonts, sizes, motion) come from `brand/design-system/tokens.json`, not from the
-  Luisart `piz` theme, which is only the example.
-Anything in those skills that is specific to the original creator (music picks, his face/voice files,
-paid programs) does **not** apply to the user.
+## Paths are placeholders (configurable)
+No skill hard-codes a folder. They use placeholders (`{PROJECT}`, `{CHANNEL}`, `{CHANNEL_DIR}`, `{VAULT}`,
+`{CONTENT_DIR}`, `{CONTENT_INBOX}`, `{KNOWLEDGE_DIR}`, `{KNOWLEDGE_INBOX}`, `{CLOUD}`) whose values live in
+`brand/paths.json`, created by `python scripts/configurar_rutas.py --create` (Stage 2 of the guide). Before
+following any skill, read that file and resolve the placeholders (`--resolve <file>` prints a skill resolved).
+The user can edit `paths.json` or any `SKILL.md` to fit their setup; `--check` verifies the folders exist.
+- `channels/soyluisart/` is the **reference channel shipped as an example** (rules, four styles, animation
+  library). The user's own channel is `{CHANNEL_DIR}` (created from `channels/_template`); create its `CHANNEL.md`
+  from `channels/_template/CHANNEL.template.md`. Where a skill says "copy from the reference video/channel", copy
+  from `channels/soyluisart/`.
+- Brand values (colours, fonts, sizes, motion) come from `brand/design-system/tokens.json`, not from the example
+  channel's theme.
+- Anything in the example docs specific to its creator (music picks, his face/voice, paid programs, names) does
+  **not** apply to the user.
 
 ## Hard rules (public repository)
 - Never commit keys (`.env` is ignored), passwords, recordings, licensed audio, other people's images or

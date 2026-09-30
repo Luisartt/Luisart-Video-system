@@ -3,24 +3,33 @@ name: luisart-animaciones-pizarra
 description: How to create, extend and deliver Luisart animations for @soyluisart — the white dotted board style (Santiago Castellanos grammar in the Luisart brand). Covers theme tokens, primitives (TypeOn, HandNote, HeadingPair, Drop, Show, Stage, ZoneFit, PixelBubble, RetroWindow, Tile, StickFigure), marker strokes, pixel icons and the robot Bit, safe zones, no plates behind text, sample-data labels and MXN, SFX through theme.sfx, vertical + horizontal showcase compositions, green-screen / white-board delivery, batch renders under the lock, QA, index sheets, and updating the README and CHANNEL.md. Use it whenever a @soyluisart video needs a board scene or graphic, whenever the user asks for a new animation, element, variant, icon, "una animación de…", "algo como la pizarra de Santiago", a green-screen version ("en verde para mi editor"), or when choosing which Luisart element fits a beat.
 ---
 
+> **Paths.** This skill uses placeholders, defined in `brand/paths.json` (created by
+> `python scripts/configurar_rutas.py`; edit that file to change them, then tell your assistant):
+> `{PROJECT}` repository root · `{CHANNEL}`/`{CHANNEL_DIR}` your channel slug and folder ·
+> `{VAULT}` your knowledge vault · `{CONTENT_DIR}`/`{CONTENT_INBOX}` content database and its `rawcc` inbox ·
+> `{KNOWLEDGE_DIR}`/`{KNOWLEDGE_INBOX}` knowledge database and its `rawc` inbox · `{CLOUD}` cloud-storage
+> folder. Resolve them before running any command (`python scripts/configurar_rutas.py --resolve <file>`
+> prints this file resolved). `channels/soyluisart/` is the **reference channel shipped as an example**:
+> copy from it where this skill says to; your own channel lives in `{CHANNEL_DIR}`.
+
 # Luisart animations for @soyluisart
 
 Luisart is THE channel style and edit system. Rules: skill `luisart-reglas` and
-`channels/soyluisart/CHANNEL.md` ★. The library is `channels/soyluisart/styles/pizarra/`; its
+`{CHANNEL_DIR}/CHANNEL.md` ★. The library is `channels/soyluisart/styles/pizarra/`; its
 `README.md` is the catalogue (every element, variant and key prop) and the timing and sound
 reference — read it before building anything. Element API details:
 [references/primitives.md](references/primitives.md).
 
-Vault (read-routing): in `C:\Users\LART\Documents\Lartyk\wiki\Content Creation\`
+Vault (read-routing): in `{VAULT}\wiki\Content Creation\`
 read ONLY `Editing System\`, the style's folder under `Styles\` (`Luisart`, `Luisart Split`…), its
 `Designs\<style>\` gallery images, that style's creators in `References\Creators\` (Santiago
 Castellanos; Nick Saraev for the split) and `Videos\<YYYY-MM-DD slug>\` when building for a video.
-**Never read `wiki\Knowledge\` or `Finanzas\`.** The library README and CHANNEL.md ★ win
+**Never read `wiki\Knowledge\` or `{KNOWLEDGE_DIR}\`.** The library README and CHANNEL.md ★ win
 over any vault page. After new library renders or a new style, copy the new index sheets / stills
-(PNG only, never videos; originals stay in `out/soyluisart/`) into `Designs\<style>\` and refresh
+(PNG only, never videos; originals stay in `out/{CHANNEL}/`) into `Designs\<style>\` and refresh
 that style's gallery `Styles\<style>\<style> Gallery.md` (embeds with full vault paths
 `![[wiki/Content Creation/Designs/<style>/file.png]]`; element, purpose, when to use it, SFX, clip
-path in `tubeai-video/out/`), then add one `[content]` entry to `wiki\Log.md` (format in the vault
+path in `{PROJECT}/out/`), then add one `[content]` entry to `wiki\Log.md` (format in the vault
 manual `CLAUDE.md`).
 
 ## Reuse first
@@ -96,15 +105,15 @@ delivery.
    (horizontal, only variants with `horizontal: true`), in Studio under `soyluisart/pizarra`.
 4. `npx tsc --noEmit` clean.
 5. Stills first (one bundle, under the lock):
-   `npx tsx core/scripts/stills-locked.ts out/soyluisart/pizarra/_stills SLA-piz-<element>-<variant>-v@mid …`
+   `npx tsx core/scripts/stills-locked.ts out/{CHANNEL}/pizarra/_stills SLA-piz-<element>-<variant>-v@mid …`
    and a zone check with the overlay:
-   `npx tsx core/scripts/frames-locked.ts out/soyluisart/pizarra/_stills SLA-piz-<element>-<variant>-v <frame> '--props={"safeGuide":true}'`.
+   `npx tsx core/scripts/frames-locked.ts out/{CHANNEL}/pizarra/_stills SLA-piz-<element>-<variant>-v <frame> '--props={"safeGuide":true}'`.
    Look: zones, cropping, empty space, text size, no plates, labels, "Luisart".
 
 ## Deliver: render, QA, index sheets
 
 Library clips are reusable graphics, not video deliverables (the finished videos come from
-`luisart-editar-short`). Luisart library clips live in `out/soyluisart/pizarra/`.
+`luisart-editar-short`). Luisart library clips live in `out/{CHANNEL}/pizarra/`.
 
 
 - **White board** (`backing: "board"`/`"cream"`): the showcase itself, and what edits use.
@@ -116,24 +125,24 @@ Library clips are reusable graphics, not video deliverables (the finished videos
   CPU encode — say so; files are large).
 
 ```bash
-npx tsx core/scripts/render-batch-locked.ts out/soyluisart/pizarra SLA-piz-<element>-<variant>-v SLA-piz-<element>-<variant> …
-npm run qa -- out/soyluisart/pizarra/SLA-piz-<element>-<variant>-v.mp4 … --allow-white
-.venv/Scripts/python.exe core/scripts/py/index_sheet.py out/soyluisart/pizarra --refresh SLA-piz-<element>-<variant>-v …
+npx tsx core/scripts/render-batch-locked.ts out/{CHANNEL}/pizarra SLA-piz-<element>-<variant>-v SLA-piz-<element>-<variant> …
+npm run qa -- out/{CHANNEL}/pizarra/SLA-piz-<element>-<variant>-v.mp4 … --allow-white
+.venv/Scripts/python.exe core/scripts/py/index_sheet.py out/{CHANNEL}/pizarra --refresh SLA-piz-<element>-<variant>-v …
 ```
 
 - One batch = one bundle, all IDs rendered in sequence under the render lock. Never start
   another render meanwhile.
 - `--allow-white` because white-board frames read as "all-white"; any single-frame flash or
   black frame is a bug.
-- List the new IDs in a new `out/soyluisart/pizarra/_ids-<batch>.txt` (sets the order in the
+- List the new IDs in a new `out/{CHANNEL}/pizarra/_ids-<batch>.txt` (sets the order in the
   sheets) and keep the QA output in `_qa-<batch>.txt`, like the earlier batches.
 - The sheets `_index-vertical.png` / `_index-horizontal.png` are what Luis browses: open them and
-  check the new thumbnails. Retired clips go to `out/soyluisart/pizarra/_retired/`.
+  check the new thumbnails. Retired clips go to `out/{CHANNEL}/pizarra/_retired/`.
 
 ## Keep the docs current (same turn)
 
 - `styles/pizarra/README.md`: a row in the elements table (element, variants, what / key props),
   new sound-map rows, any new timing or layout rule.
-- `channels/soyluisart/CHANNEL.md` ★: only when a RULE changes (and then update skill
+- `{CHANNEL_DIR}/CHANNEL.md` ★: only when a RULE changes (and then update skill
   `luisart-reglas` to match). New elements don't need a CHANNEL.md line.
 - Report to Luis in Spanish: what the new animation does, where the file is, the index sheet.

@@ -78,7 +78,7 @@ Vertical 1080×1920 + horizontal 1920×1080, Codex-reviewed.
 _None._ (Each exception: number, rule, what differs, date, "user decision YYYY-MM-DD".)
 
 ## 12. Sample and status
-- Sample render (full path in `tubeai-video/out/`):
+- Sample render (full path in `{PROJECT}/out/`):
 - Contact sheet:
 - Pending decisions:
 
