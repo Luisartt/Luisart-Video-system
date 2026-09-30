@@ -1,5 +1,9 @@
 {
   "_comment": "Single source of truth for the order of the guided run. Read by scripts/progreso.py and by the skill luisart-init-skills. 'done_when' = files that prove the step is done (globs relative to the repo; {channel} comes from brand/paths.json); empty = marked by hand.",
+  "support_skills": [
+    "os-fallbacks"
+  ],
+  "_support_note": "Support skills are not steps: they are consulted on demand (for example when a step fails).",
   "steps": [
     {
       "id": "S01",

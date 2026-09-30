@@ -17,6 +17,8 @@ channel folder live in their own fork; their vault lives in its own private repo
 **Detect the operating system first** (`uname -s`, or `$env:OS` on Windows) and use the matching column. The exact
 commands for both are in `docs/INSTALACION.md` (show it to the user if they ask).
 
+0. **Profile the computer:** `python scripts/diagnosticar.py --save` (`python3` on a Mac if `python` is missing) → `brand/system.json`
+   with the OS, chip, GPU and the recommended route for each part. **If any step below fails, use the skill `os-fallbacks`.**
 1. **Check the machine** (read-only). Windows: `powershell -File .claude\skills\luisart-montar-sistema\scriptserificar_equipo.ps1`.
    macOS/Linux: `bash .claude/skills/luisart-montar-sistema/scripts/verificar_equipo.sh`.
    Requirements: Windows 10/11 or macOS 13+, ≥ 16 GB RAM, ≥ 60 GB free disk. **GPU for the local AI parts (Whisper, person matte,

@@ -16,7 +16,7 @@ assistant. The `channels/soyluisart/` folder and the `luisart-*` skills are a **
    session start; it only reads `brand/` and prints text.
 
 ## The guided path (skills)
-`luisart-init-skills` (the conductor: runs all of these in order, `steps.json`) → `video-system-start` (intake) →
+`luisart-init-skills` (the conductor; `os-fallbacks` is consulted whenever a step fails: runs all of these in order, `steps.json`) → `video-system-start` (intake) →
 `luisart-montar-sistema` (computer setup) → `design-system-create` **or**
 `design-system-import` → `design-references-research` (sites; guide in
 `.claude/skills/design-references-research/references/sites.md`) → `graphics-from-design-system` →
@@ -47,6 +47,12 @@ The system runs on both. **Detect the OS first** and use the right commands: Win
 `.sh` scripts and Terminal (`bash`). Step-by-step instructions for both: `docs/INSTALACION.md`. Never hard-code the venv Python: use
 `{PYTHON}` (from `brand/paths.json`). Local AI acceleration: NVIDIA CUDA on Windows, Apple Metal on a Mac with Apple Silicon (an Intel
 Mac cannot run the local AI parts; graphics, carousels, stories, Buffer and wiki still work).
+
+## When something fails
+Do not improvise. Run `python scripts/diagnosticar.py --save` (writes `brand/system.json`: OS, chip, RAM, GPU, encoders, torch device,
+recommendations) and follow the skill **`os-fallbacks`**: a table of alternatives per operating system (Windows, macOS Apple Silicon or
+Intel, Linux) for installers, Whisper, matte, face tracking, Remotion/ffmpeg, browser automation, downloads, permissions, paths and
+sleep. Apply the smallest change, retry once, degrade gracefully if needed, and record what worked in `brand/system.json → notes`.
 
 ## Hard rules (public repository)
 - Never commit keys (`.env` is ignored), passwords, recordings, licensed audio, other people's images or

@@ -21,3 +21,4 @@ MyVault/
 __pycache__/
 *.pyc
 brand/paths.json
+brand/system.json

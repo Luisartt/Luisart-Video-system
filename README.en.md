@@ -49,6 +49,7 @@ versions, and independent review with Codex.
 | `vault-template/` | skeleton of your wiki: manual `CLAUDE.md`, inboxes, page templates, Web Clipper |
 | `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md` | **videos with reference videos (Route A) or from your design system alone (Route B)** |
 | `channels/_template/social/` | carousel and story renderer (`render_social.cjs`) + examples |
+| `.claude/skills/os-fallbacks/`, `scripts/diagnosticar.py` | **if something fails, the AI picks the alternative for your system (Windows / Mac / Linux)** |
 | `docs/INSTALACION.md` | **step-by-step installation for Windows and Mac** |
 | `docs/BUFFER.md`, `tools/buffer/` | Buffer recommendation and setup + scripts to schedule posts |
 | `docs/MODELOS-Y-CLIS.md` | which models and CLIs to use (images, video, voice, review), with options |

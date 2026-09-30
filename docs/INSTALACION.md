@@ -81,7 +81,13 @@ y sigue con `luisart-init-skills` (marca → design system → gráficos → wik
 | Evitar suspensión | Configuración → Energía | `caffeinate -i` |
 | Carpeta de la nube | `G:\My Drive\…` | `~/Library/CloudStorage/GoogleDrive-…/My Drive/…` |
 
-## 7. Problemas frecuentes / Troubleshooting
+## 7. Si algo falla: la IA busca la alternativa según tu sistema / If something fails
+Corre `python scripts/diagnosticar.py --save` (python3 en Mac): detecta tu sistema (Windows, Mac Apple Silicon, Mac Intel, Linux) y guarda
+las recomendaciones en `brand/system.json`. La skill **`os-fallbacks`** tiene las tablas de alternativas por sistema (instaladores,
+Whisper, recorte de persona, seguimiento de cara, render, navegador, descargas, permisos, rutas, suspensión) y la IA las aplica sola.
+Ejemplo real: si la GPU NVIDIA falla por una librería de CUDA, la transcripción alternativa (`transcribe_fallback.py`) vuelve sola a CPU.
+
+## 8. Problemas frecuentes / Troubleshooting
 - **`npm ci` falla por permisos** (Mac): no uses `sudo`; cierra Terminal y repite tras `bash scripts/instalar-herramientas.sh`.
 - **El render se queda sin memoria:** baja la concurrencia: `REMOTION_CONCURRENCY=2` (Windows: `set REMOTION_CONCURRENCY=2`).
 - **Whisper tarda mucho en Mac:** es normal la primera vez (descarga ~1.6 GB) y es más lento que en NVIDIA; usa audio corto para probar.

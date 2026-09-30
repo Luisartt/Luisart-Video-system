@@ -48,6 +48,7 @@ respetan la cara, versiones vertical y horizontal y revisión independiente con 
 | `vault-template/` | esqueleto de tu wiki: manual `CLAUDE.md`, bandejas, plantillas, Web Clipper |
 | `docs/VIDEOS-CON-O-SIN-REFERENCIAS.md` | **videos con referencias (Ruta A) o solo con tu design system (Ruta B)** |
 | `channels/_template/social/` | renderizador de carruseles e historias (`render_social.cjs`) + ejemplos |
+| `.claude/skills/os-fallbacks/`, `scripts/diagnosticar.py` | **si algo falla, la IA busca la alternativa según tu sistema (Windows / Mac / Linux)** |
 | `docs/INSTALACION.md` | **instalación paso a paso para Windows y Mac** |
 | `docs/BUFFER.md`, `tools/buffer/` | recomendación y setup de Buffer + scripts para programar posts |
 | `docs/MODELOS-Y-CLIS.md` | qué modelos y CLIs usar (imágenes, video, voz, revisión) con opciones |

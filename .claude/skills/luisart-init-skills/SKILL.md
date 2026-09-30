@@ -53,8 +53,10 @@ Then go to 1.
   style). If the user insists, mark it skipped and warn again when a later step needs it.
 - **Resume anywhere:** `--autodetect` marks steps whose proof files exist; `--reset <ID>` redoes one; `--list` shows all.
   If the user wants a different order, they may jump (`--next` is a suggestion): honour it and keep the record honest.
-- **Failures:** say what failed in plain words, fix it, retry once; if it still fails, mark nothing as done, tell the
-  user what is needed, and offer to continue with the next independent step.
+- **Failures:** run the skill **`os-fallbacks`** (`python scripts/diagnosticar.py --save` first): it gives the alternative for this
+  operating system (Windows, Mac with Apple Silicon or Intel, Linux). Apply it, retry once; if it still fails, degrade gracefully
+  (skip the dependent feature and say what it costs), mark nothing as done, tell the user what is needed, and offer to continue
+  with the next independent step. Support skills listed in `steps.json → support_skills` are consulted on demand, not run as steps.
 - **Hard rules** (from `CLAUDE.md`) apply to every step: public repository (no keys, recordings, licensed audio, others'
   images, vault); never log in for the user; never pick their music; never clone a voice; publish or schedule only
   when they say the post is done.
